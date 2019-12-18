@@ -10,7 +10,7 @@ set -e
 # Prints out commands about to be executed
 set -x
 
-repo=${1:-https://github.com/pinterest/gestalt.git}
+repo=${1:-https://github.com/christianvuerings/gestalt-copy.git}
 
 git checkout -b tmp-deploy
 (cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt')

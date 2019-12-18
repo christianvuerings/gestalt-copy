@@ -13,14 +13,26 @@ jobs:
       - name: Get the version
         id: version
         run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@v1
+      - name: Checkout the repo
+        uses: actions/checkout@master
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
         with:
           node-version: 12
-      - env:
+      - name: Setup npm
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
-      - run: |
+      - name: Publish to npm
+        run: |
           yarn install
           cd packages/gestalt
           yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ steps.version.outputs.VERSION }}
+      - name: Update github pages
+        run: |
+          git checkout -b tmp-deploy
+          (cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt')
+          git add -f docs/build
+          git commit -m "Deployed to Github Pages" --no-verify
+          git subtree split --prefix docs/build -b tmp-gh-pages
+          git push -f https://github.com/christianvuerings/gestalt-copy.git tmp-gh-pages:gh-pages
