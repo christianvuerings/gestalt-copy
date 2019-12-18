@@ -10,9 +10,9 @@ jobs:
     name: Publish gestalt
     runs-on: ubuntu-latest
     steps:
-      - env:
-          github_ref: ${{ GITHUB_REF#"refs/tags/" }}
-        run: echo "Publishing version ${github_ref}"
+      - name: Get the version
+        id: version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
         with:
@@ -20,9 +20,7 @@ jobs:
       - env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
-      - env:
-          github_ref: ${{ GITHUB_REF#"refs/tags/" }}
-        run: |
+      - run: |
           yarn install
           cd packages/gestalt
-          yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${github_ref}
+          yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ steps.version.outputs.VERSION }}
