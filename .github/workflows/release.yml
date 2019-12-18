@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    name: Publish gestalt
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          github_ref: ${{ github.ref }}
+        run: echo "Publishing version $github_ref"
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
+      - run: |
+          cd packages/gestalt
+          yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ github.ref }}
