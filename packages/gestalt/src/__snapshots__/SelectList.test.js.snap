@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectList SelectList normal 1`] = `
+<div
+  className="box"
+>
+  <div
+    className="box relative whiteBg xsDisplayFlex"
+    style={
+      Object {
+        "borderRadius": 4,
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      className="absolute bottom0 box itemsCenter right0 top0 xsDisplayFlex"
+      style={
+        Object {
+          "paddingRight": 14,
+          "paddingTop": 2,
+        }
+      }
+    >
+      <svg
+        aria-hidden={true}
+        aria-label=""
+        className="icon darkGray iconBlock"
+        height={12}
+        role="img"
+        viewBox="0 0 24 24"
+        width={12}
+      >
+        <path
+          d="test-file-stub"
+        />
+      </svg>
+    </div>
+    <select
+      aria-describedby={null}
+      aria-invalid="false"
+      className="select enabled normal"
+      disabled={false}
+      id="test"
+      onBlur={[Function]}
+      onChange={[Function]}
+    >
+      <option
+        value="value1"
+      >
+        option1
+      </option>
+      <option
+        value="value2"
+      >
+        option2
+      </option>
+      <option
+        value="value3"
+      >
+        option3
+      </option>
+    </select>
+  </div>
+</div>
+`;

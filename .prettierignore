@@ -1,0 +1,7 @@
+__testfixtures__
+build
+coverage
+dist
+flow-typed
+node_modules
+package.json

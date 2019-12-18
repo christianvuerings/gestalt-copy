@@ -1,0 +1,82 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:eslint-comments/recommended",
+    "plugin:flowtype/recommended",
+    "plugin:jest/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "eslint-comments",
+    "flowtype",
+    "jest",
+    "jsx-a11y",
+    "prettier",
+    "react",
+    "react-hooks",
+    "import"
+  ],
+  "rules": {
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
+    "import/no-extraneous-dependencies": "off",
+    "import/no-relative-parent-imports": "error",
+    "import/no-unresolved": "off",
+    "jsx-a11y/label-has-for": [
+      "error",
+      { "components": ["label"], "allowChildren": true }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": ["Label"],
+        "labelAttributes": ["htmlFor"],
+        "controlComponents": ["CheckBox"],
+        "depth": 3
+      }
+    ],
+    "no-await-in-loop": "off",
+    "no-return-await": "off",
+    "prettier/prettier": [
+      "error",
+      { "trailingComma": "es5", "singleQuote": true }
+    ],
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react/destructuring-assignment": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
+    "react/require-default-props": "off",
+    "react/state-in-constructor": ["error", "never"],
+    "react/static-property-placement": ["error", "static public field"]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.js", "**/*.integration.js"],
+      "env": {
+        "jest": true
+      },
+      "globals": {
+        "page": true,
+        "browser": true
+      }
+    },
+    {
+      "files": ["scripts/danger/*.js"],
+      "globals": {
+        "danger": true,
+        "markdown": true,
+        "warn": true
+      }
+    }
+  ]
+}
