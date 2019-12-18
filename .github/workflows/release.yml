@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - env:
-          github_ref: ${{ github.ref }}
+          github_ref: ${GITHUB_REF#"refs/tags/"}
         run: echo "Publishing version $github_ref"
       - uses: actions/checkout@master
       - uses: actions/setup-node@v1
@@ -22,4 +22,4 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
       - run: |
           cd packages/gestalt
-          yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ github.ref }}
+          yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${GITHUB_REF#"refs/tags/"}
