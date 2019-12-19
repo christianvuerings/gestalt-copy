@@ -28,10 +28,17 @@ jobs:
           yarn install
           cd packages/gestalt
           yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ steps.version.outputs.VERSION }}
+      - name: Setup github access tokens
+        env:
+          GITHUB_PERSONAL_TOKEN: ${{ secrets.GITHUB_PERSONAL_TOKEN }}
+        run: |
+          echo "machine github.com" >> .netrc
+          echo "login christianvuerings" >> .netrc
+          echo "password $GITHUB_PERSONAL_TOKEN" >> .netrc
       - name: Update github pages
         run: |
-          git config user.name ${action.name}
-          git config user.email ${action.email}
+          git config user.name "Publish gestalt"
+          git config user.email "gestalt@users.noreply.github.com"
           git checkout -b tmp-deploy
           (cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt')
           git add -f docs/build
