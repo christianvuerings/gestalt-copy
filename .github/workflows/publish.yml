@@ -1,44 +1,42 @@
 name: Publish
 
-on:
-  push:
-    tags:
-      - 'v*'
+on: [push]
 
 jobs:
   test:
     name: Publish gestalt
     runs-on: ubuntu-latest
     steps:
-      - name: Get the version
-        id: version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+      # - name: Get the version
+      #   id: version
+      #   run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
       - name: Checkout the repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         with:
           persist-credentials: false
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Setup npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
+      # - name: Setup npm
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
       - name: Publish to npm
         run: |
           yarn install
           cd packages/gestalt
-          yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ steps.version.outputs.VERSION }}
+        # yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ steps.version.outputs.VERSION }}
       - name: Setup github access tokens
         env:
           GITHUB_PERSONAL_TOKEN: ${{ secrets.GITHUB_PERSONAL_TOKEN }}
         run: |
-          echo "machine github.com" >> .netrc
-          echo "login christianvuerings" >> .netrc
-          echo "password $GITHUB_PERSONAL_TOKEN" >> .netrc
+          echo "machine github.com" >> ~/.netrc
+          echo "login christianvuerings" >> ~/.netrc
+          echo "password $GITHUB_PERSONAL_TOKEN" >> ~/.netrc
       - name: Update github pages
         run: |
+          [ -f ~/.netrc ] && echo "$FILE exist"
           git config user.name "Publish gestalt"
           git config user.email "gestalt@users.noreply.github.com"
           git checkout -b tmp-deploy
