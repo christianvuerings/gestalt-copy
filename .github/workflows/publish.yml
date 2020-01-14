@@ -22,7 +22,7 @@ jobs:
       #   env:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       #   run: echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" >> ~/.npmrc
-      - name: Publish to npm
+      - name: Yarn install
         run: |
           yarn install
           cd packages/gestalt
@@ -40,7 +40,7 @@ jobs:
           git config user.name "Publish gestalt"
           git config user.email "gestalt@users.noreply.github.com"
           git checkout -b tmp-deploy
-          (cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt')
+          (cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt-copy')
           git add -f docs/build
           git commit -m "Deployed to Github Pages" --no-verify
           git subtree split --prefix docs/build -b tmp-gh-pages
