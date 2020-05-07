@@ -1,9 +1,10 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Caret from './Caret.js';
 import styles from './Contents.css';
+import borders from './Borders.css';
 import colors from './Colors.css';
 
 /* Needed until this Flow issue is fixed: https://github.com/facebook/flow/issues/380 */
@@ -52,9 +53,9 @@ type Shift = { x: number, y: number };
 
 type EdgeShift = { caret: Shift, flyout: Shift };
 
-/* eslint-disable react/no-unused-prop-types */
 type Props = {|
   bgColor: 'blue' | 'darkGray' | 'orange' | 'red' | 'white',
+  border?: boolean,
   caret?: boolean,
   children?: React.Node,
   idealDirection?: 'up' | 'right' | 'down' | 'left',
@@ -65,17 +66,17 @@ type Props = {|
     x: number,
     y: number,
   },
+  rounding?: 2 | 4,
   shouldFocus?: boolean,
   triggerRect: ClientRect,
   width: ?number,
 |};
-/* eslint-enable react/no-unused-prop-types */
 
 type State = {|
-  flyoutOffset: {
+  flyoutOffset: {|
     top: ?number,
     left: ?number,
-  },
+  |},
   caretOffset: {
     top: ?number,
     right: ?number,
@@ -290,20 +291,22 @@ export function adjustOffsets(
 
 /* Calculates baseline top and left offset for flyout */
 export function baseOffsets(
+  hasCaret: boolean,
   relativeOffset: { x: number, y: number },
   flyoutSize: Flyout,
   mainDir: MainDir,
   triggerRect: ClientRect,
   windowSize: Window
 ) {
-  const HALF_CARET = CARET_HEIGHT / 2;
+  const SPACING_OUTSIDE = hasCaret ? CARET_HEIGHT / 2 : 8;
   // TOP OFFSET
   let top;
   if (mainDir === 'down') {
-    top = windowSize.scrollY + triggerRect.bottom + HALF_CARET;
+    top = windowSize.scrollY + triggerRect.bottom + SPACING_OUTSIDE;
   } else if (mainDir === 'up') {
     top =
-      windowSize.scrollY + (triggerRect.top - flyoutSize.height - HALF_CARET);
+      windowSize.scrollY +
+      (triggerRect.top - flyoutSize.height - SPACING_OUTSIDE);
   } else {
     // left and right
     top = windowSize.scrollY + triggerRect.top;
@@ -313,9 +316,10 @@ export function baseOffsets(
   let left;
   if (mainDir === 'left') {
     left =
-      windowSize.scrollX + (triggerRect.left - flyoutSize.width - HALF_CARET);
+      windowSize.scrollX +
+      (triggerRect.left - flyoutSize.width - SPACING_OUTSIDE);
   } else if (mainDir === 'right') {
-    left = windowSize.scrollX + triggerRect.right + HALF_CARET;
+    left = windowSize.scrollX + triggerRect.right + SPACING_OUTSIDE;
   } else {
     // down and up
     left = windowSize.scrollX + triggerRect.left;
@@ -330,19 +334,19 @@ export function baseOffsets(
 export default class Contents extends React.Component<Props, State> {
   static propTypes = {
     bgColor: PropTypes.oneOf(['blue', 'darkGray', 'orange', 'red', 'white']),
+    border: PropTypes.bool,
     caret: PropTypes.bool,
     children: PropTypes.node,
-    idealDirection: PropTypes.oneOf(['up', 'right', 'down', 'left']), // eslint-disable-line react/no-unused-prop-types
+    idealDirection: PropTypes.oneOf(['up', 'right', 'down', 'left']),
     onKeyDown: PropTypes.func.isRequired,
     onResize: PropTypes.func.isRequired,
-    // eslint-disable-next-line react/no-unused-prop-types
     relativeOffset: PropTypes.exact({
       x: PropTypes.number,
       y: PropTypes.number,
     }),
-    positionRelativeToAnchor: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
+    positionRelativeToAnchor: PropTypes.bool,
+    rounding: PropTypes.oneOf([2, 4]),
     shouldFocus: PropTypes.bool,
-    // eslint-disable-next-line react/no-unused-prop-types
     triggerRect: PropTypes.exact({
       bottom: PropTypes.number,
       height: PropTypes.number,
@@ -355,14 +359,13 @@ export default class Contents extends React.Component<Props, State> {
   };
 
   static defaultProps = {
+    border: true,
     caret: true,
   };
 
   state = {
     flyoutOffset: {
       top: undefined,
-      right: undefined,
-      bottom: undefined,
       left: undefined,
     },
     caretOffset: {
@@ -402,6 +405,7 @@ export default class Contents extends React.Component<Props, State> {
    */
   static getDerivedStateFromProps(
     {
+      caret,
       idealDirection,
       positionRelativeToAnchor,
       relativeOffset,
@@ -432,7 +436,7 @@ export default class Contents extends React.Component<Props, State> {
 
     const flyoutSize = {
       height: flyoutRef ? flyoutRef.clientHeight : 0,
-      width: width || (flyoutRef ? flyoutRef.clientWidth : 0),
+      width: (flyoutRef ? flyoutRef.clientWidth : width) || 0,
     };
 
     // First choose one of 4 main direction
@@ -448,6 +452,7 @@ export default class Contents extends React.Component<Props, State> {
 
     // Gets the base offset that positions the flyout based on the main direction only
     const base = baseOffsets(
+      Boolean(caret),
       relativeOffset,
       flyoutSize,
       mainDir,
@@ -486,7 +491,7 @@ export default class Contents extends React.Component<Props, State> {
   };
 
   render() {
-    const { bgColor, caret, children, width } = this.props;
+    const { bgColor, border, caret, children, rounding, width } = this.props;
     const { caretOffset, flyoutOffset, mainDir } = this.state;
 
     // Needed to prevent UI thrashing
@@ -501,8 +506,11 @@ export default class Contents extends React.Component<Props, State> {
       >
         <div
           className={classnames(
+            border && styles.border,
             colors[background],
             colors[bgColor],
+            rounding === 2 && borders.rounding2,
+            rounding === 4 && borders.rounding4,
             styles.contents,
             styles.maxDimensions,
             width !== null && styles.minDimensions
@@ -516,7 +524,7 @@ export default class Contents extends React.Component<Props, State> {
               styles.maxDimensions,
               width !== null && styles.minDimensions
             )}
-            style={{ width }}
+            style={{ maxWidth: width }}
           >
             {children}
           </div>

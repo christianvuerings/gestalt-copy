@@ -73,8 +73,10 @@ exports[`Video with children 1`] = `
       className="box paddingX2 paddingY2"
     >
       <div
-        className="touchable pointer square"
+        className="touchable pointer rounding0"
+        onBlur={[Function]}
         onClick={[Function]}
+        onFocus={[Function]}
         onKeyPress={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -105,7 +107,7 @@ exports[`Video with children 1`] = `
       }
     >
       <div
-        className="Text fontSize1 white alignRight breakWord fontStyleNormal fontWeightNormal"
+        className="Text fontSize1 white alignRight breakWord fontWeightNormal"
       >
         00:00
       </div>
@@ -136,7 +138,7 @@ exports[`Video with children 1`] = `
           tabIndex="-1"
         >
           <div
-            className="absolute box left0 lightGrayBg right0 rounded"
+            className="absolute box left0 lightGrayBg right0 rounding2"
             style={
               Object {
                 "height": 4,
@@ -144,7 +146,7 @@ exports[`Video with children 1`] = `
             }
           >
             <div
-              className="box rounded whiteBg"
+              className="box rounding2 whiteBg"
               style={
                 Object {
                   "height": "100%",
@@ -154,7 +156,7 @@ exports[`Video with children 1`] = `
             />
           </div>
           <div
-            className="absolute box rounded"
+            className="absolute box rounding2"
             style={
               Object {
                 "height": 4,
@@ -185,7 +187,7 @@ exports[`Video with children 1`] = `
       }
     >
       <div
-        className="Text fontSize1 white alignRight breakWord fontStyleNormal fontWeightNormal"
+        className="Text fontSize1 white alignRight breakWord fontWeightNormal"
       >
         00:00
       </div>
@@ -194,8 +196,10 @@ exports[`Video with children 1`] = `
       className="box paddingX2 paddingY2"
     >
       <div
-        className="touchable pointer square"
+        className="touchable pointer rounding0"
+        onBlur={[Function]}
         onClick={[Function]}
+        onFocus={[Function]}
         onKeyPress={[Function]}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
@@ -205,7 +209,7 @@ exports[`Video with children 1`] = `
         <svg
           aria-hidden={null}
           aria-label="Mute"
-          className="icon white iconBlock"
+          className="rtlSupport icon white iconBlock"
           height={20}
           role="img"
           viewBox="0 0 24 24"

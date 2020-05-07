@@ -1,9 +1,8 @@
-// @flow
+// @flow strict
 import React from 'react';
 import PropTable from './components/PropTable.js';
 import Example from './components/Example.js';
 import PageHeader from './components/PageHeader.js';
-import stock14 from './images/stock14.jpg';
 
 const cards = [];
 const card = c => cards.push(c);
@@ -40,6 +39,14 @@ card(
         href: 'basicExample',
       },
       {
+        name: 'onBlur',
+        type: '({ event: SyntheticFocusEvent<HTMLDivElement> }) => void',
+      },
+      {
+        name: 'onFocus',
+        type: '({ event: SyntheticFocusEvent<HTMLDivElement> }) => void',
+      },
+      {
         name: 'onMouseEnter',
         type: '({ event: SyntheticMouseEvent<HTMLDivElement> }) => void',
       },
@@ -55,9 +62,8 @@ card(
         href: 'basicExample',
       },
       {
-        name: 'shape',
-        type: `"square" | "rounded" | "pill" | "circle" | "roundedTop" | "roundedBottom" | "roundedLeft" | "roundedRight"`,
-        defaultValue: 'square',
+        name: 'rounding',
+        type: `"pill" | "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8`,
         href: 'basicExample',
       },
     ]}
@@ -74,56 +80,42 @@ card(
   `}
     name="Example"
     defaultCode={`
-class TouchableExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { clicks: 0 };
-    this.handleTouch = this._handleTouch.bind(this);
-    this.handleLinkClick = this._handleLinkClick.bind(this);
-  }
-  _handleTouch() {
-    this.setState({
-      clicks: this.state.clicks + 1,
-    });
-  };
-  _handleLinkClick({ event }) {
-    event.stopPropagation();
-  };
-  render() {
-    return (
-      <Box padding={2} width={150}>
-        <Touchable
-          mouseCursor="zoomIn"
-          onTouch={this.handleTouch}
-          shape="rounded"
-        >
-          <Mask shape="rounded">
-            <Image
-              alt="Antelope Canyon"
-              naturalHeight={1}
-              naturalWidth={1}
-              src="${stock14}"
-            />
-          </Mask>
-          <Box paddingY={2}>
-            <Link
-              href="https://en.wikipedia.org/wiki/Antelope_Canyon"
-              onClick={this.handleLinkClick}
-            >
-              <Text align="center">Wiki Link</Text>
-            </Link>
-          </Box>
-        </Touchable>
+function TouchableExample() {
+  const [clicks, setClicks] = React.useState(0);
+
+  return (
+    <Box padding={2} width={150}>
+      <Touchable
+        mouseCursor="zoomIn"
+        onTouch={() => setClicks(clicks + 1)}
+        rounding={2}
+      >
+        <Mask rounding={2}>
+          <Image
+            alt="Antelope Canyon"
+            naturalHeight={1}
+            naturalWidth={1}
+            src="https://i.ibb.co/DwYrGy6/stock14.jpg"
+          />
+        </Mask>
         <Box paddingY={2}>
-          <Text color="gray" align="center">
-            Clicked{' '}
-            {this.state.clicks}{' '}
-            {this.state.clicks === 1 ? 'time' : 'times'}
-          </Text>
+          <Link
+            href="https://en.wikipedia.org/wiki/Antelope_Canyon"
+            onClick={({ event }) => event.stopPropagation()}
+          >
+            <Text align="center">Wiki Link</Text>
+          </Link>
         </Box>
+      </Touchable>
+      <Box paddingY={2}>
+        <Text color="gray" align="center">
+          Clicked{' '}
+          {clicks}{' '}
+          {clicks === 1 ? 'time' : 'times'}
+        </Text>
       </Box>
-    );
-  }
+    </Box>
+  );
 }
 `}
   />

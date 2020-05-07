@@ -7,3 +7,7 @@
 .iconBlock {
   composes: block from "./Layout.css";
 }
+
+html[dir="rtl"] .rtlSupport {
+  transform: rotateY(180deg);
+}

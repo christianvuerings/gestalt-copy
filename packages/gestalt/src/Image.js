@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from './Box.js';
@@ -105,7 +105,7 @@ export default class Image extends React.PureComponent<Props> {
     return isScaledImage ? (
       <div
         aria-label={alt}
-        className={styles[fit]}
+        className={fit === 'contain' || fit === 'cover' ? styles[fit] : null}
         style={{
           backgroundColor: color,
           backgroundImage: `url('${src}')`,

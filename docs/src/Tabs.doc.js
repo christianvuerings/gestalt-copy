@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import { Tabs } from 'gestalt';
 import PropTable from './components/PropTable.js';
@@ -33,6 +33,15 @@ card(
         name: 'onChange',
         type: `({ event: SyntheticMouseEvent<>, activeTabIndex: number }) => void`,
         required: true,
+        description:
+          'If your app uses a tool such as react-router to navigate between pages, be sure to use onChange to navigate instead of getting a full page refresh with href',
+      },
+      {
+        name: 'size',
+        type: '"md" | "lg"',
+        required: false,
+        description: 'md: 40px, lg: 48px',
+        defaultValue: 'md',
       },
       {
         name: 'wrap',
@@ -48,42 +57,32 @@ card(
     name="Example"
     direction="row"
     defaultCode={`
-class TabExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeIndex: 0
-    };
-    this.handleChange = this._handleChange.bind(this);
-  }
-  _handleChange({ activeTabIndex, event }) {
+function TabExample() {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const handleChange = ({ activeTabIndex, event }) => {
     event.preventDefault();
-    this.setState({
-      activeIndex: activeTabIndex
-    });
+    setActiveIndex(activeTabIndex)
   }
-  render() {
-    return (
-      <Tabs
-        tabs={[
-          {
-            text: "Boards",
-            href: "#"
-          },
-          {
-            text: "Pins",
-            href: "#"
-          },
-          {
-            text: "Topics",
-            href: "#"
-          }
-        ]}
-        activeTabIndex={this.state.activeIndex}
-        onChange={this.handleChange}
-      />
-    );
-  }
+  return (
+    <Tabs
+      tabs={[
+        {
+          text: "Boards",
+          href: "#"
+        },
+        {
+          text: "Pins",
+          href: "#"
+        },
+        {
+          text: "Topics",
+          href: "#"
+        }
+      ]}
+      activeTabIndex={activeIndex}
+      onChange={handleChange}
+    />
+  );
 }
   `}
   />

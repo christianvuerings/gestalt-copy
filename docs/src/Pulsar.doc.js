@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import PropTable from './components/PropTable.js';
 import Example from './components/Example.js';
@@ -41,31 +41,25 @@ card(
   `}
     name="Example"
     defaultCode={`
-class PulsarExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isPulsing: true
-    };
-  }
+  function PulsarExample() {
+    const [isPulsing, setIsPulsing] = React.useState(true);
 
-  render() {
-    const text = this.state.isPulsing ? 'Click to pause' : 'Click to show';
+    const text = isPulsing ? 'Click to pause' : 'Click to show';
+
     return (
       <Box display="flex" direction="column">
         <Box marginBottom={4}>
           <Button
             text={text}
-            onClick={() => this.setState({ isPulsing: !this.state.isPulsing })}
+            onClick={() => setIsPulsing(!isPulsing)}
             inline
             size="md"
           />
         </Box>
-        <Pulsar paused={!this.state.isPulsing} />
+        <Pulsar paused={!isPulsing} />
       </Box>
     );
   }
-}
 `}
   />
 );
@@ -102,7 +96,7 @@ class FlyoutExample extends React.Component {
             top: 10,
             left: 10,
             pointerEvents: "none", }}>
-            <Touchable onTouch={({ event }) => this.handleClick(event)} shape="circle" fullWidth={false}>
+            <Touchable onTouch={({ event }) => this.handleClick(event)} rounding="circle" fullWidth={false}>
               <Pulsar paused={this.state.open} />
             </Touchable>
           </div>
@@ -122,7 +116,7 @@ class FlyoutExample extends React.Component {
             shouldFocus={false}
           >
             <Box column={12} padding={3}>
-              <Text color="white" size="md" weight="bold">
+              <Text color="white" weight="bold">
                 Create a board to save Pins about Kitchen Design for later
               </Text>
             </Box>

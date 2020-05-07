@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import { Box, Text, Heading, Link } from 'gestalt';
 import Markdown from './Markdown.js';
@@ -20,8 +20,8 @@ export default function ComponentHeader({ name, description = '' }: Props) {
   return (
     <Box marginBottom={6}>
       <Box marginBottom={4}>
-        <Heading size="md">{name}</Heading>
-        <Text leading="tall" color="gray">
+        <Heading>{name}</Heading>
+        <Text color="gray">
           <Link href={githubUrl(name)} inline>
             Source
           </Link>

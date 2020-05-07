@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import { create } from 'react-test-renderer';
 import Icon from './Icon.js';
@@ -20,5 +20,10 @@ test('Icon uses the dangerouslySetSvgPath prop when icon path is not specified',
       accessibilityLabel="Line"
     />
   ).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+test('Icon flipped if its in the flip on rtl list', () => {
+  const tree = create(<Icon accessibilityLabel="send" icon="send" />).toJSON();
   expect(tree).toMatchSnapshot();
 });

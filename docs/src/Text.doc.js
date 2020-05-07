@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTable from './components/PropTable.js';
 import Example from './components/Example.js';
@@ -40,11 +40,6 @@ card(
         href: 'inline',
       },
       {
-        name: 'leading',
-        type: `"short" | "tall"`,
-        description: `short: line-height 1.2, tall: line-height 1.5, default: browser determines line-height based on language`,
-      },
-      {
         name: 'italic',
         type: 'boolean',
         defaultValue: false,
@@ -58,11 +53,10 @@ card(
       },
       {
         name: 'size',
-        type: `"xs" | "sm" | "md" | "lg" | "xl"`,
-        description: `xs: 12px, sm: 14px, md: 16px, lg: 18px, xl: 21px`,
-        defaultValue: 'md',
+        type: `"sm" | "md" | "lg"`,
+        description: `sm: 12px, md: 14px, lg: 16px`,
+        defaultValue: 'lg',
         href: 'size',
-        responsive: true,
       },
       {
         name: 'truncate',
@@ -156,14 +150,14 @@ card(
 <Box maxWidth={240}>
   <Box marginBottom={2}>
     <Text weight="bold">normal:</Text>
-    <Text overflow="normal" leading="tall">
+    <Text overflow="normal">
       This is a long and Supercalifragilisticexpialidocious sentence.
       次の単語グレートブリテンおよび北アイルランド連合王国で本当に大きな言葉&#39;
     </Text>
   </Box>
   <Box marginBottom={2}>
     <Text weight="bold">breakWord:</Text>
-    <Text leading="tall">
+    <Text>
       This is a long and Supercalifragilisticexpialidocious sentence.
       次の単語グレートブリテンおよび北アイルランド連合王国で本当に大きな言葉
       ｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗ&#39;
@@ -171,7 +165,7 @@ card(
   </Box>
   <Box marginBottom={2}>
     <Text weight="bold">truncate:</Text>
-    <Text truncate leading="tall">
+    <Text truncate>
       This is a long and Supercalifragilisticexpialidocious sentence.
       次の単語グレートブリテンおよび北アイルランド連合王国で本当に大きな言葉
       ｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗｗ&#39;
@@ -190,16 +184,6 @@ card(
     name="Sizes"
     defaultCode={`
 <Box>
-  <Box marginBottom={2}>
-    <Text inline size="xs">
-      {'Extra small'}
-    </Text>{' '}
-    <span lang="ja">
-      <Text inline size="xs">
-        こんにちは
-      </Text>
-    </span>
-  </Box>
   <Box marginBottom={2}>
     <Text inline size="sm">
       {'Small'}
@@ -226,16 +210,6 @@ card(
     </Text>{' '}
     <span lang="ja">
       <Text inline size="lg">
-        こんにちは
-      </Text>
-    </span>
-  </Box>
-  <Box marginBottom={2}>
-    <Text inline size="xl">
-      {'Extra Large'}
-    </Text>{' '}
-    <span lang="ja">
-      <Text inline size="xl">
         こんにちは
       </Text>
     </span>

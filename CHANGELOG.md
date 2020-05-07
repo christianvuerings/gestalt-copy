@@ -8,16 +8,556 @@
 
 ### Minor
 
+### Patch
+
+</details>
+
+## 1.47.0 (May 6, 2020)
+
+### Minor
+
+- Flyout: Add flexible size prop to flyout (#840)
+- Icon: Add story pin icon (#842)
+- Internal: Enable + enforce flow strict on every file (#841)
+
+### Patch
+
+- Flyout: Fix stroke on caret (#837)
+
+## 1.46.1 (Apr 28, 2020)
+
+### Patch
+
+- Readme: Remove greenkeeper reference (#835)
+
+## 1.46.0 (Apr 27, 2020)
+
+### Minor
+
+- IconButton/Pog: Deprecated bgColor=blue in Pog and IconButton (#827)
+- Touchable: add optional onBlur / onFocus props (#832)
+
+## 1.45.0 (Apr 23, 2020)
+
+### Minor
+
+- SearchField: convert back to class component (#830)
+
+## 1.44.0 (Apr 23, 2020)
+
+### Minor
+
+- SearchField: Update design (#819)
+
+### Patch
+
+- Internal: Test builds on Node.js 14 (#826)
+- Docs: Refactored instances of class to function components in Docs (#817)
+
+## 1.43.0 (Apr 21, 2020)
+
+### Minor
+
+- Tooltip: Show tooltip when React children have focus (#824)
+- IconButton/Pog: Removed unused iconColor options: blue, orange; added darkGray; added bgColor: darkGray (#823)
+- Docs: Replaced combinations in Pog with Combinations: Icon Color & Background Color. Removed IconButton-bgColor-blue option from Docs. (#823)
+
+### Patch
+
+- Internal: Enable React.Strict on documentation (#821)
+- Checkbox/Radiobutton: Updated checkbox and radiobutton borders for disabled state (disabled controls don't show outlines) (#795)
+
+## 1.42.0 (Apr 20, 2020)
+
+### Minor
+
+- RadioButton/Checkbox: Moved shared classes to RadioButtonCheckbox.css (#810)
+- Internal: update yarn.lock file (#814)
+- Internal: Minor version updates for several dependencies (#815)
+- Buttons/Tabs: Increase paddingX to 16px on lg Buttons and Tabs (#816)
+
+### Patch
+
+- Docs: Add a note on the Tabs documentation about use with react-router (#813)
+
+## 1.41.0 (Apr 16, 2020)
+
+### Minor
+
+- Color: update gray color to #767676 (#804)
+- Icon: update default #8e8e8e to #767676 (#811)
+
+## 1.40.0 (Apr 15, 2020)
+
+### Minor
+
+- Text/Heading: Use default (manual) hyphenation (#807)
+
+### Patch
+
+- Internal: remove reference to unused .integration.js (#808)
+
+## 1.39.0 (Apr 14, 2020)
+
+### Minor
+
+- SegmentedControl: Update the border radius from 8px outer / 6px inner to 16px outer / 14px inner (#798)
+
+## 1.38.0 (Apr 13, 2020)
+
+### Minor
+
+- Modal: support Flyout inside of a Modal (#793)
+
+## 1.37.0 (Apr 3, 2020)
+
+### Minor
+
+- Masonry: Allow string enum types for Masonry layout prop (in prep of removing symbols/classes) (#782)
+
+## 1.36.0 (Apr 3, 2020)
+
+### Minor
+
+- Icon: Add code icon (#786)
+
+## 1.35.0 (Apr 2, 2020)
+
+### Minor
+
+- Text: Remove prop `leading` and related css properties (#784)
+
+Run codemods:
+cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.35.0-1.36.0/leading-text-remove.js ~/code/repo
+
+## 1.34.0 (Apr 1, 2020)
+
+### Minor
+
+- Tooltip: Update border radius + adjust spacing (#786)
+
+## 1.33.0 (Mar 31, 2020)
+
+### Minor
+
+- Avatar: Add `__dangerouslyUseDefaultIcon` prop (#774)
+
+## 1.32.0 (Mar 31, 2020)
+
+### Minor
+
+- Avatar/GroupAvatar: update sizes / default avatar / remove verified outline (#771)
+
+## 1.31.0 (Mar 31, 2020)
+
+### Minor
+
+- [Revert] Modal: Update OutsideEventBehavior to work well with Portals (#778)
+
+## 1.30.0 (Mar 30, 2020)
+
+### Minor
+
+- Modal: Update OutsideEventBehavior to work well with Portals (#777)
+
+## 1.29.0 (Mar 27, 2020)
+
+### Minor
+
+- IconButton/Pog: Add "red" backgroundColor + update icon sizes (#778)
+
+## 1.28.0 (Mar 27, 2020)
+
+### Minor
+
+- Borders: Update lightgray border color to `#ddd` (#776)
+
+### Patch
+
+- Docs: Fix layout for 1 line code example (#779)
+
+## 1.27.0 (Mar 26, 2020)
+
+### Minor
+
+- Text: Remove deprecated prop `__dangerouslyIncreaseLineHeight` (#773)
+
+### Patch
+
+- SelectList: Remove selected prop from the placeholder option tag for better React support (#759)
+
+## 1.26.0 (Mar 25, 2020)
+
+### Minor
+
+- Heading: Add align prop (#767)
+- Button: Add iconEnd prop (#766)
+
+## 1.25.0 (Mar 24, 2020)
+
+### Minor
+
+- RadioButton: Updated style. Added built-in label (optional 'label' prop). (#749)
+- Checkbox: Updated style. Added built-in label (optional 'label' and 'errorMessage' props) (#749)
+
+## 1.24.0 (Mar 23, 2020)
+
+### Minor
+
+- Text/Heading: Update letter spacing to default (normal) (#764)
+
+## 1.23.2 (Mar 20, 2020)
+
+### Patch
+
+- Toast: Fix color proptypes (#762)
+
+## 1.23.1 (Mar 20, 2020)
+
+### Patch
+
+- Toast: add back the color `red` as a deprecated feature (#760)
+
+## 1.23.0 (Mar 20, 2020)
+
+### Minor
+
+- Toast: Update design + remove icon/color + add thumbnailShape/button (#755)
+
+Run codemods:
+`cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.22.0-1.23.0/toast-remove-color-icon.js ~/code/repo`
+
+## 1.22.1 (Mar 19, 2020)
+
+### Patch
+
+- SelectList: Update wrapper rounding (#756)
+
+## 1.22.0 (Mar 16, 2020)
+
+### Minor
+
+- Docs: Use same React version as package (#753)
+
+## 1.21.0 (Mar 16, 2020)
+
+### Minor
+
+- Flyout: Responsive, updated sizes + minimum width (#743)
+
+### Patch
+
+- Internal: upgrade packages (#751)
+
+## 1.20.0 (Mar 12, 2020)
+
+### Minor
+
+- RadioButton: Fix when container is set to overflow=auto (#745)
+- Icon: Add phone icon (#746)
+
+### Patch
+
+- TextField / TextArea / SelectList: Fix error focus state (#744)
+
+## 1.19.0 (Mar 11, 2020)
+
+### Minor
+
+- IconWithTooltip: Remove deprecated component (#741)
+
+## 1.18.0 (Mar 10, 2020)
+
+### Minor
+
+- Flyout/Tooltip: Update spacing around to 8px when caret is hidden (#737)
+- Docs: Open in CodeSandbox & remove checkerbox from example (#735)
+- Internal: fail build when CSS flow changes are required (#738)
+
+## 1.17.0 (Mar 9, 2020)
+
+### Minor
+
+- Icon: Add credit-card and conversion-tag icons (#716)
+- Box [Breaking]: Removes support to deprecated props deprecatedMargin & deprecatedPadding (#711)
+
+Run codemods:
+
+`cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.15.0-1.16.0/deprecatedMargin-box-replace.js ~/code/repo`
+`cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.15.0-1.16.0/deprecatedPadding-box-replace.js ~/code/repo`
+
+## 1.16.0 (Mar 6, 2020)
+
+### Minor
+
+- Tabs: Add white background, backgrounds for active and hover/focus states, 60px min width (#731)
+
+### Patch
+
+- Internal: Detect and remove unused eslint disables (#723)
+
+## 1.15.0 (Mar 5, 2020)
+
+### Minor
+
+- Text [Breaking]: Removes deprecated size=xl (#729)
+
+Run codemod:
+
+`cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.14.0-1.15.0/remove-text-size-xl.js ~/code/repo`
+
+## 1.14.0 (Mar 5, 2020)
+
+### Minor
+
+- Form Elements: Remove horizontal spacing for label / helperText and errorMessage (#727)
+
+## 1.13.0 (Mar 5, 2020)
+
+### Minor
+
+- Form fields: Add "lg" size option (#713)
+
+## 1.12.0 (Mar 4, 2020)
+
+### Minor
+
+- Tabs: update horizontal padding to 12px (#698)
+- SelectList/TextArea/TextField: Update focus states (#720)
+
+### Patch
+
+- Docs: make checkerboard optional (#714)
+
+## 1.11.1 (Mar 3, 2020)
+
+### Patch
+
+- Tooltip: Bugfix: add layer (#717)
+
+## 1.11.0 (Mar 3, 2020)
+
+### Minor
+
+- SelectList / TextField / TextArea: Add `label` and `helperText` props (#705)
+- Flyout: Make caret optional (#706)
+
+## 1.10.1 (Mar 2, 2020)
+
+### Patch
+
+- Text / Heading: Made typography changes more backwards-compatible by adding xl size back in as deprecated feature (#707)
+
+## 1.10.0 (Feb 28, 2020)
+
+### Minor
+
+- Tooltip: Add ability to hover over tooltip and add a clickable link (#684)
+- Tooltip: Add idealDirection (#701)
+- IconWithTooltip: deprecate component (#690)
+
+### Patch
+
+- Modal: [Docs] Fix default value for closeOnOutsideClick (#697)
+- Box/Mask/Sticky: [Docs] Added descriptions about usage to attributes accepting both string and number formats. (#703)
+- README: [Docs] Removed references and script to run integrations tests. (#702)
+
+## 1.9.0 (Feb 27, 2020)
+
+### Minor
+
+- Text / Heading [Breaking]: Added codemod to support breaking changes from #693 (removed support for responsive size prop values smSize, mdSize, and lgSize in Text and Heading component) (#696)
+- Heading / Text [Breaking]: Reduce size options from xs-xl to sm-lg (#693)
+
+Run codemods for breaking changes in order:
+
+1. `cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.8.0-1.9.0/remove-responsive-text-sizing.js ~/code/repo`
+2. `yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.8.0-1.9.0/heading-size-replace.js ~/code/repo`
+3. `yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.8.0-1.9.0/text-size-replace.js ~/code/repo`
+
+## 1.8.0 (Feb 27, 2020)
+
+### Minor
+
+- SelectList / TextField / TextArea: Update design (#664)
+
+## 1.7.1 (Feb 26, 2020)
+
+### Minor
+
+- Modal: Fix extra border between content / footer (#694)
+- Text/Heading: Revert letter spacing changes (#694)
+
+## 1.7.0 (Feb 25, 2020)
+
+### Minor
+
+- Button: update horizontal padding to 12px (#688)
+- [Revert] Flyout: Update spacing around items to 8px + remove caret code (#668)
+- [Revert] Masonry: Allow string enum types for Masonry layout prop (in prep of removing symbols/classes) (#667)
+
+## 1.6.0 (Feb 25, 2020)
+
+- Internal: Update Node.js version to 12.x (#686)
+- Internal: update yarn.lock file (#687)
+
+## 1.5.0 (Feb 25, 2020)
+
+### Minor
+
+- Box: Add `borderSize` prop for styling borders (#678)
+- Modal: visual refresh + heading optional + add closeOnOutsideClick (#680)
+
+Codemods:
+`cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/1.3.0-1.4.0/modal-remove-close-label.js ~/code/repo`
+
+## 1.4.0 (Feb 24, 2020)
+
+### Minor
+
+- Internal: Detect invalid composes in CSS modules (#676)
+- Internal: Flowtype CSS files in CI (#675)
+- Internal: Add code of conduct & powered by netlify link (#679)
+- Text/Heading: Update letter spacing to default (#681)
+
+## 1.3.0 (Feb 20, 2020)
+
+- Modal / SegmentedControl / Card: Fix corner radius (#672)
+
+## 1.2.0 (Feb 20, 2020)
+
+### Minor
+
+- Internal: Update dependencies (#671)
+
+### Patch
+
+- Heading: removed unused weight prop from docs (#653)
+
+## 1.1.0 (Feb 20, 2020)
+
+### Minor
+
+- Masonry: Allow string enum types for Masonry layout prop (in prep of removing symbols/classes) (#667)
+
+## 1.0.0 (Feb 20, 2020)
+
+### Major
+
+- Box / Touchable [Breaking]: Removed support for `shape` prop values `roundedTop`, `roundedRight`, `roundedBottom`, and `roundedLeft` (#657)
+- Box / Mask / Touchable [Breaking]: Replace `shape` prop with `rounding` (#666)
+
+Run codemods for breaking changes in order:
+
+1. `cd gestalt; yarn run codemod --parser=flow -t=packages/gestalt-codemods/0.125.0-1.0.0/convert-roundedX.js ~/code/repo`
+2. `yarn run codemod --parser=flow -t=packages/gestalt-codemods/0.125.0-1.0.0/convert-shape-to-rounding.js ~/code/repo`
+
+### Minor
+
+- Flyout: Remove caret, update shadow (#663)
+- Flyout: Update spacing around items to 8px + remove caret code (#668)
+
+## 0.125.0 (Feb 16, 2020)
+
+### Minor
+
+- IconButton/Pog: Add darkGray background option (#659)
+- Tabs: update states + improve docs & test coverage (#658)
+- Button/IconButton/Pog: Convert 'darkGray' color to selected state (#661)
+
+## 0.124.0 (Feb 12, 2020)
+
+### Minor
+
+- Box: Add new prop `opacity` to set css opacity with values 0 to 1 in tenth increments. (#654)
+- Button: Update border radius / small size + add dark gray option (#655)
+
+## 0.123.0 (Feb 7, 2020)
+
+### Minor
+
+- Color: update dark gray color to #111 (#648)
+- Masonry: Shipped "fixFetchMoreBug" behavior and removed flag. This makes Masonry fetch less aggressively in some cases. (#651)
+
+## 0.122.3 (Jan 30, 2020)
+
+### Patch
+
+- Bumping version with no other changes for the sake of fixing release to npm.
+
+## 0.122.2 (Jan 30, 2020)
+
+### Patch
+
+- Masonry: Reverts the past update to `wait`. Turns out this was more dangerous than expected, and we should experiment on it later. (#645)
+
+## 0.122.1 (Jan 29, 2020)
+
+### Patch
+
+- Masonry: Add a `wait` value for throttling updateScrollPosition (#641)
+
+## 0.122.0 (Jan 28, 2020)
+
+### Minor
+
+- Icon: Update existing workflow icon svg for ok, halted, problem, unstarted, in progress and warning (#638)
+- Icon: Added newline in css file and removed comment (#637)
+- Icon: Add right-to-left locales flip style support (#631)
+
+### Patch
+
+- Docs: Update docs to wrap Flyouts, Modals, and Tooltips in Layers so they don't get overlapped by example code (#639)
+
+## 0.121.0 (Jan 21, 2020)
+
+### Minor
+
+- Switch: Add right-to-left locales flip style support (#628)
+- Flow: Upgrade to version 0.116.1 (#635)
+
+## 0.120.0 (Jan 20, 2020)
+
+### Patch
+
+- Stats: Calculate raw and percentage number of gestalt components vs native components (#627)
+- Masonry: Add a flag to optionally fix a bug (see PR notes) (#632)
+
+## 0.113.3 (Jan 13, 2020)
+
+### Patch
+
+- Internal: Update GitHub pages publish script (#625)
+
+## 0.113.2 (Jan 13, 2020)
+
+### Patch
+
+- Internal: Update GitHub pages publish script (#624)
+
+## 0.113.1 (Jan 13, 2020)
+
+### Patch
+
+- Button: Fix spelling mistake in the docs (#622)
+- Internal: Fix the publish to GitHub pages (#621)
+
+## 0.113.0 (Jan 9, 2020)
+
+### Minor
+
 - Icon: Add workflow-status-all icon (#614)
+- Icon: Add workflow-status-warning icon (#616)
+- IconWithTooltip: Add component and tests (#609)
+- IconWithTooltip: Improve accessibility and convert component to hooks (#618)
 
 ### Patch
 
 - IconButton: Convert examples & component to use hooks (#612)
 - Internal: Convert from Travis.ci to GitHub workflows (#610)
 - Internal: include flow warnings in error output (#611)
+- Internal: Perform releases with GitHub CI (#615)
 - Link: Convert component to use hooks (#613)
-
-</details>
 
 ## 0.112.0 (Dec 10, 2019)
 

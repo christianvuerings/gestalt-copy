@@ -86,7 +86,7 @@
 /* size */
 
 .small {
-  min-height: 36px;
+  min-height: 32px;
 }
 
 .medium {
@@ -249,4 +249,8 @@
 
 .orderLast {
   order: 99999;
+}
+
+.minWidth60 {
+  min-width: 60px;
 }

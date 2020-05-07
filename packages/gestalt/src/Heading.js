@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -7,6 +7,7 @@ import styles from './Heading.css';
 import typography from './Typography.css';
 
 type Props = {|
+  align?: 'left' | 'right' | 'center' | 'justify',
   accessibilityLevel?: 1 | 2 | 3 | 4 | 5 | 6,
   children?: React.Node,
   color?:
@@ -28,71 +29,61 @@ type Props = {|
     | 'watermelon'
     | 'white',
   id?: string,
-  lgSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
-  mdSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
   overflow?: 'normal' | 'breakWord',
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
-  smSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
+  size?: 'sm' | 'md' | 'lg',
   truncate?: boolean,
 |};
 
 const defaultHeadingLevels = {
-  xs: 5,
-  sm: 4,
-  md: 3,
-  lg: 2,
-  xl: 1,
+  sm: 3,
+  md: 2,
+  lg: 1,
 };
 
 const SIZE_SCALE: { [size: ?string]: number } = {
-  xs: 1,
-  sm: 2,
-  md: 3,
-  lg: 4,
-  xl: 5,
+  sm: 1,
+  md: 2,
+  lg: 3,
 };
 
 export default function Heading(props: Props) {
   const {
     accessibilityLevel,
+    align = 'left',
     children,
     color = 'darkGray',
     id = null,
-    lgSize,
-    mdSize,
     overflow = 'breakWord',
-    size = 'md',
-    smSize,
+    size = 'lg',
     truncate = false,
   } = props;
 
   const cs = cx(
     styles.Heading,
     styles[`fontSize${SIZE_SCALE[size]}`],
-    smSize && styles[`smFontSize${SIZE_SCALE[smSize]}`],
-    mdSize && styles[`mdFontSize${SIZE_SCALE[mdSize]}`],
-    lgSize && styles[`lgFontSize${SIZE_SCALE[lgSize]}`],
     colors[color],
+    align === 'center' && typography.alignCenter,
+    align === 'justify' && typography.alignJustify,
+    align === 'left' && typography.alignLeft,
+    align === 'right' && typography.alignRight,
     overflow === 'breakWord' && typography.breakWord,
     truncate && typography.truncate
   );
 
   const headingLevel = accessibilityLevel || defaultHeadingLevels[size];
-  return React.createElement(
-    `h${headingLevel}`,
-    {
-      className: cs,
-      ...(id ? { id } : null),
-      ...(truncate && typeof children === 'string'
-        ? { title: children }
-        : null),
-    },
-    children
-  );
+  let newProps = { className: cs };
+  if (id) {
+    newProps = { ...newProps, id };
+  }
+  if (truncate && typeof children === 'string') {
+    newProps = { ...newProps, title: children };
+  }
+  return React.createElement(`h${headingLevel}`, newProps, children);
 }
 
 Heading.propTypes = {
   accessibilityLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+  align: PropTypes.oneOf(['left', 'right', 'center', 'justify']),
   children: PropTypes.node,
   color: PropTypes.oneOf([
     'blue',
@@ -115,9 +106,6 @@ Heading.propTypes = {
   ]),
   id: PropTypes.string,
   overflow: PropTypes.oneOf(['normal', 'breakWord']),
-  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
-  smSize: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
-  mdSize: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
-  lgSize: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
   truncate: PropTypes.bool,
 };

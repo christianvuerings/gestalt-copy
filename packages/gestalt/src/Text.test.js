@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import { create } from 'react-test-renderer';
 import Text from './Text.js';
@@ -13,13 +13,8 @@ test('Text orange adds the orange color class', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('Text leading short adds the leadingShort class', () => {
-  const tree = create(<Text leading="short" />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
-
-test('Text leading tall adds the leadingTall class', () => {
-  const tree = create(<Text leading="tall" />).toJSON();
+test('Text size sm adds the small size class', () => {
+  const tree = create(<Text size="sm" />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 

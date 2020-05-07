@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import { Box, Heading } from 'gestalt';
 import Markdown from './Markdown.js';
@@ -22,7 +22,7 @@ export default function Card({
 }: Props) {
   return (
     <Box id={id}>
-      {heading && <Heading size="xs">{name}</Heading>}
+      {heading && <Heading size="md">{name}</Heading>}
       <Box
         marginLeft={-2}
         marginRight={-2}

@@ -1,10 +1,12 @@
-// @flow
-
+// @flow strict
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import Box from './Box.js';
+import PropTypes from 'prop-types';
+import formElement from './FormElement.css';
 import FormErrorMessage from './FormErrorMessage.js';
+import FormHelperText from './FormHelperText.js';
+import FormLabel from './FormLabel.js';
+import layout from './Layout.css';
 import styles from './TextField.css';
 
 type Props = {|
@@ -17,7 +19,9 @@ type Props = {|
   disabled?: boolean,
   errorMessage?: string,
   hasError?: boolean,
+  helperText?: string,
   id: string,
+  label?: string,
   name?: string,
   onBlur?: ({
     event: SyntheticFocusEvent<HTMLInputElement>,
@@ -37,6 +41,7 @@ type Props = {|
   }) => void,
   placeholder?: string,
   type?: 'date' | 'email' | 'number' | 'password' | 'text' | 'url',
+  size?: 'md' | 'lg',
   value?: string,
 |};
 
@@ -60,13 +65,16 @@ export default class TextField extends React.Component<Props, State> {
     disabled: PropTypes.bool,
     errorMessage: PropTypes.string,
     hasError: PropTypes.bool,
+    helperText: PropTypes.string,
     id: PropTypes.string.isRequired,
+    label: PropTypes.string,
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
     onKeyDown: PropTypes.func,
     placeholder: PropTypes.string,
+    size: PropTypes.oneOf(['md', 'lg']),
     type: PropTypes.oneOf([
       'date',
       'email',
@@ -81,6 +89,7 @@ export default class TextField extends React.Component<Props, State> {
   static defaultProps = {
     disabled: false,
     hasError: false,
+    size: 'md',
     type: 'text',
   };
 
@@ -124,9 +133,12 @@ export default class TextField extends React.Component<Props, State> {
       disabled,
       errorMessage,
       hasError,
+      helperText,
       id,
+      label,
       name,
       placeholder,
+      size,
       type,
       value,
     } = this.props;
@@ -135,8 +147,10 @@ export default class TextField extends React.Component<Props, State> {
 
     const classes = classnames(
       styles.textField,
-      disabled ? styles.disabled : styles.enabled,
-      hasError || errorMessage ? styles.errored : styles.normal
+      formElement.base,
+      disabled ? formElement.disabled : formElement.enabled,
+      hasError || errorMessage ? formElement.errored : formElement.normal,
+      size === 'md' ? layout.medium : layout.large
     );
 
     // type='number' doesn't work on ios safari without a pattern
@@ -145,6 +159,7 @@ export default class TextField extends React.Component<Props, State> {
 
     return (
       <span>
+        {label && <FormLabel id={id} label={label} />}
         <input
           aria-describedby={errorMessage && focused ? `${id}-error` : null}
           aria-invalid={errorMessage || hasError ? 'true' : 'false'}
@@ -163,11 +178,10 @@ export default class TextField extends React.Component<Props, State> {
           type={type}
           value={value}
         />
-        {errorMessage && (
-          <Box marginTop={1}>
-            <FormErrorMessage id={id} text={errorMessage} />
-          </Box>
-        )}
+        {helperText && !errorMessage ? (
+          <FormHelperText text={helperText} />
+        ) : null}
+        {errorMessage && <FormErrorMessage id={id} text={errorMessage} />}
       </span>
     );
   }

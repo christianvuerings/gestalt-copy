@@ -5,10 +5,9 @@ exports[`SelectList SelectList normal 1`] = `
   className="box"
 >
   <div
-    className="box relative whiteBg xsDisplayFlex"
+    className="box relative rounding4 whiteBg xsDisplayFlex"
     style={
       Object {
-        "borderRadius": 4,
         "width": "100%",
       }
     }
@@ -39,7 +38,7 @@ exports[`SelectList SelectList normal 1`] = `
     <select
       aria-describedby={null}
       aria-invalid="false"
-      className="select enabled normal"
+      className="select base enabled normal medium"
       disabled={false}
       id="test"
       onBlur={[Function]}

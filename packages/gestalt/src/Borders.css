@@ -1,44 +1,70 @@
 :root {
   --border-width: 1px;
-  --border-color: #efefef;
-  --border-radius: 8px;
+  --border-width-lg: 2px;
+  --border-color-gray: #767676;
+  --border-color-darkGray: #111;
+  --border-color-lightGray: #ddd;
+  --border-color-lightGrayDisabled: #efefef;
+  --border-color-red: #e60023;
+  --border-color-lightGrayHovered: #d0d0d0;
+  --bt: 4px;
 }
 
 /* Border lines */
 
 .border {
-  border: var(--border-width) solid var(--border-color);
+  border: var(--border-width) solid var(--border-color-lightGray);
+}
+
+.borderColorGray {
+  border-color: var(--border-color-gray);
+}
+
+.borderColorDarkGray {
+  border-color: var(--border-color-darkGray);
+}
+
+.borderColorLightGray {
+  border-color: var(--border-color-lightGray);
+}
+
+.borderColorRed {
+  border-color: var(--border-color-red);
+}
+
+.borderColorLightGrayHovered {
+  border-color: var(--border-color-lightGrayHovered);
+}
+
+.borderColorLightGrayDisabled {
+  border-color: var(--border-color-lightGrayDisabled);
 }
 
 .borderTop {
-  border-top: var(--border-width) solid var(--border-color);
+  border-top: var(--border-width) solid var(--border-color-lightGray);
 }
 
 html:not([dir="rtl"]) .borderRight {
-  border-right: var(--border-width) solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color-lightGray);
 }
 
 html[dir="rtl"] .borderRight {
-  border-left: var(--border-width) solid var(--border-color);
+  border-left: var(--border-width) solid var(--border-color-lightGray);
 }
 
 .borderBottom {
-  border-bottom: var(--border-width) solid var(--border-color);
+  border-bottom: var(--border-width) solid var(--border-color-lightGray);
 }
 
 html:not([dir="rtl"]) .borderLeft {
-  border-left: var(--border-width) solid var(--border-color);
+  border-left: var(--border-width) solid var(--border-color-lightGray);
 }
 
 html[dir="rtl"] .borderLeft {
-  border-right: var(--border-width) solid var(--border-color);
+  border-right: var(--border-width) solid var(--border-color-lightGray);
 }
 
-/* Border radii */
-
-.square {
-  border-radius: 0;
-}
+/* Border radius */
 
 .circle {
   border-radius: 50%;
@@ -48,34 +74,54 @@ html[dir="rtl"] .borderLeft {
   border-radius: 999px;
 }
 
-.rounded {
-  border-radius: var(--border-radius);
+.rounding0 {
+  border-radius: calc(var(--bt) * 0);
 }
 
-.roundedTop {
-  border-radius: var(--border-radius) var(--border-radius) 0 0;
+.rounding1 {
+  border-radius: calc(var(--bt) * 1);
 }
 
-html:not([dir="rtl"]) .roundedRight {
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+.rounding2 {
+  border-radius: calc(var(--bt) * 2);
 }
 
-html[dir="rtl"] .roundedRight {
-  border-radius: var(--border-radius) 0 0 var(--border-radius);
+.rounding3 {
+  border-radius: calc(var(--bt) * 3);
 }
 
-.roundedBottom {
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
+.rounding4 {
+  border-radius: calc(var(--bt) * 4);
 }
 
-html:not([dir="rtl"]) .roundedLeft {
-  border-radius: var(--border-radius) 0 0 var(--border-radius);
+.rounding5 {
+  border-radius: calc(var(--bt) * 5);
 }
 
-html[dir="rtl"] .roundedLeft {
-  border-radius: 0 var(--border-radius) var(--border-radius) 0;
+.rounding6 {
+  border-radius: calc(var(--bt) * 6);
+}
+
+.rounding7 {
+  border-radius: calc(var(--bt) * 7);
+}
+
+.rounding8 {
+  border-radius: calc(var(--bt) * 8);
 }
 
 .noBorder {
   border: 0;
+}
+
+.sizeSm {
+  border-width: var(--border-width);
+}
+
+.sizeLg {
+  border-width: var(--border-width-lg);
+}
+
+.solid {
+  border-style: solid;
 }

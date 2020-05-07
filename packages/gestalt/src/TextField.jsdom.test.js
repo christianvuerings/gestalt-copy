@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import TextField from './TextField.js';
@@ -83,5 +83,67 @@ describe('TextField', () => {
       target: { value: 'panda' },
     });
     expect(mockKeyDown).toHaveBeenCalled();
+  });
+
+  it('shows a label for the text field', () => {
+    const { getByText } = render(
+      <TextField
+        id="test"
+        label="Label for the text field"
+        onChange={() => {}}
+        value="TextField Text"
+      />
+    );
+    expect(getByText('Label for the text field')).toBeVisible();
+  });
+
+  it('shows helper text for the text field', () => {
+    const { getByText } = render(
+      <TextField
+        id="test"
+        label="Label for the text field"
+        helperText="Helper text for the text field"
+        onChange={() => {}}
+        value="TextField Text"
+      />
+    );
+    expect(getByText('Helper text for the text field')).toBeVisible();
+  });
+
+  it('hides the helper text for the text field when an error message is shown', () => {
+    const { getByText } = render(
+      <TextField
+        id="test"
+        label="Label for the text field"
+        helperText="Helper text for the text field"
+        errorMessage="Error message for the text field"
+        onChange={() => {}}
+        value="TextField Text"
+      />
+    );
+    expect(() => {
+      getByText('Helper text for the text field');
+    }).toThrow(
+      'Unable to find an element with the text: Helper text for the text field'
+    );
+  });
+
+  it('adds a "medium" classname by default', () => {
+    const { container } = render(
+      <TextField id="test" onChange={() => {}} value="TextField Text" />
+    );
+    expect(container.querySelector('.medium')).toBeVisible();
+  });
+
+  it('adds a "large" classname when size is set to "lg"', () => {
+    const { container } = render(
+      <TextField
+        id="test"
+        onChange={() => {}}
+        value="TextField Text"
+        size="lg"
+      />
+    );
+    expect(container.querySelector('.large')).toBeVisible();
   });
 });

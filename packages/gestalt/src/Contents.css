@@ -5,10 +5,12 @@
 .contents {
   composes: block from "./Layout.css";
   composes: borderBox from "./Layout.css";
-  composes: rounded from "./Borders.css";
-  border: 1px solid currentColor;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   outline: none;
+}
+
+.border {
+  border: 1px solid currentColor;
 }
 
 .maxDimensions {
@@ -18,12 +20,13 @@
 
 .minDimensions {
   min-height: 40px;
+  min-width: 180px;
 }
 
 .innerContents {
   composes: flex from "./Layout.css";
   composes: overflowAuto from "./Layout.css";
-  composes: rounded from "./Borders.css";
+  composes: rounding2 from "./Borders.css";
 }
 
 .caret {

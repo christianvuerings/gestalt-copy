@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import ad from './ad.svg';
 import add from './add.svg';
 import addCircle from './add-circle.svg';
@@ -17,6 +17,7 @@ import alignTop from './align-top.svg';
 import alignTopCenter from './align-top-center.svg';
 import alignTopLeft from './align-top-left.svg';
 import alignTopRight from './align-top-right.svg';
+import androidShare from './android-share.svg';
 import angledPin from './angled-pin.svg';
 import apps from './apps.svg';
 import arrowBack from './arrow-back.svg';
@@ -40,10 +41,13 @@ import checkCircle from './check-circle.svg';
 import circleOutline from './circle-outline.svg';
 import clear from './clear.svg';
 import clock from './clock.svg';
+import code from './code.svg';
 import cog from './cog.svg';
 import colorPicker from './color-picker.svg';
 import compass from './compass.svg';
 import compose from './compose.svg';
+import conversionTag from './conversion-tag.svg';
+import creditCard from './credit-card.svg';
 import crop from './crop.svg';
 import dash from './dash.svg';
 import directionalArrowLeft from './directional-arrow-left.svg';
@@ -106,6 +110,7 @@ import pause from './pause.svg';
 import people from './people.svg';
 import person from './person.svg';
 import personAdd from './person-add.svg';
+import phone from './phone.svg';
 import pin from './pin.svg';
 import pinHide from './pin-hide.svg';
 import pinterest from './pinterest.svg';
@@ -131,6 +136,7 @@ import sortDescending from './sort-descending.svg';
 import speech from './speech.svg';
 import speechEllipsis from './speech-ellipsis.svg';
 import star from './star.svg';
+import storyPin from './story-pin.svg';
 import switchAccount from './switch-account.svg';
 import tag from './tag.svg';
 import terms from './terms.svg';
@@ -158,6 +164,7 @@ import workflowStatusInProgress from './workflow-status-in-progress.svg';
 import workflowStatusOk from './workflow-status-ok.svg';
 import workflowStatusProblem from './workflow-status-problem.svg';
 import workflowStatusUnstarted from './workflow-status-unstarted.svg';
+import workflowStatusWarning from './workflow-status-warning.svg';
 
 export default {
   ad,
@@ -178,6 +185,7 @@ export default {
   'align-top-left': alignTopLeft,
   'align-top-right': alignTopRight,
   'align-top': alignTop,
+  'android-share': androidShare,
   'angled-pin': angledPin,
   apps,
   'arrow-back': arrowBack,
@@ -202,11 +210,14 @@ export default {
   'circle-outline': circleOutline,
   clear,
   clock,
+  code,
   cog,
   compass,
   compose,
   crop,
   dash,
+  'conversion-tag': conversionTag,
+  'credit-card': creditCard,
   'directional-arrow-left': directionalArrowLeft,
   'directional-arrow-right': directionalArrowRight,
   download,
@@ -267,6 +278,7 @@ export default {
   people,
   person,
   'person-add': personAdd,
+  phone,
   pin,
   'pin-hide': pinHide,
   pinterest,
@@ -292,6 +304,7 @@ export default {
   speech,
   'speech-ellipsis': speechEllipsis,
   star,
+  'story-pin': storyPin,
   'switch-account': switchAccount,
   tag,
   terms,
@@ -319,4 +332,5 @@ export default {
   'workflow-status-ok': workflowStatusOk,
   'workflow-status-problem': workflowStatusProblem,
   'workflow-status-unstarted': workflowStatusUnstarted,
+  'workflow-status-warning': workflowStatusWarning,
 };

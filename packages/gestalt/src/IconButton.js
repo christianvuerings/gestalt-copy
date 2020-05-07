@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -12,16 +12,18 @@ type Props = {|
   accessibilityLabel: string,
   bgColor?:
     | 'transparent'
+    | 'darkGray'
     | 'transparentDarkGray'
     | 'gray'
     | 'lightGray'
     | 'white'
-    | 'blue',
+    | 'red',
   dangerouslySetSvgPath?: { __path: string },
   disabled?: boolean,
-  iconColor?: 'gray' | 'darkGray' | 'red' | 'blue' | 'white' | 'orange',
   icon?: $Keys<typeof icons>,
+  iconColor?: 'gray' | 'darkGray' | 'red' | 'white',
   onClick?: ({ event: SyntheticMouseEvent<> }) => void,
+  selected?: boolean,
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl',
 |};
 
@@ -32,8 +34,9 @@ export default function IconButton({
   bgColor,
   dangerouslySetSvgPath,
   disabled,
-  iconColor,
   icon,
+  iconColor,
+  selected,
   size,
   onClick,
 }: Props) {
@@ -69,8 +72,9 @@ export default function IconButton({
         dangerouslySetSvgPath={dangerouslySetSvgPath}
         focused={!disabled && isFocused}
         hovered={!disabled && isHovered}
-        iconColor={iconColor}
         icon={icon}
+        iconColor={iconColor}
+        selected={selected}
         size={size}
       />
     </button>
@@ -83,25 +87,20 @@ IconButton.propTypes = {
   accessibilityLabel: PropTypes.string.isRequired,
   bgColor: PropTypes.oneOf([
     'transparent',
+    'darkGray',
     'transparentDarkGray',
     'gray',
     'lightGray',
     'white',
-    'blue',
+    'red',
   ]),
   dangerouslySetSvgPath: PropTypes.shape({
     __path: PropTypes.string,
   }),
   disabled: PropTypes.bool,
   icon: PropTypes.oneOf(Object.keys(icons)),
-  iconColor: PropTypes.oneOf([
-    'gray',
-    'darkGray',
-    'red',
-    'blue',
-    'white',
-    'orange',
-  ]),
+  iconColor: PropTypes.oneOf(['gray', 'darkGray', 'red', 'white']),
   onClick: PropTypes.func,
+  selected: PropTypes.bool,
   size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),
 };

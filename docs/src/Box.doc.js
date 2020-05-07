@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import { Box, Button } from 'gestalt';
 import PropTable from './components/PropTable.js';
@@ -103,6 +103,14 @@ card(
           'Allows the default alignment (or the one specified by align-items) to be overridden for individual flex items.',
       },
       {
+        name: 'borderSize',
+        type: `"sm" | "lg" | "none"`,
+        defaultValue: 'none',
+        description:
+          'Specify a border width for the box. "sm" is 1px and "lg" is 2px. Setting a size will always default the border style to solid and color to lightGray',
+        href: 'border',
+      },
+      {
         name: 'color',
         type: `"blue" | "darkGray" | "darkWash" | "eggplant" | "gray" | "green" | "lightGray" | "lightWash" | "maroon" | "midnight" | "navy" | "olive" | "orange" | "orchid" | "pine" | "purple" | "red" | "transparent" | "transparentDarkGray" | "watermelon" | "white"`,
         defaultValue: 'transparent',
@@ -137,22 +145,31 @@ card(
       {
         name: 'maxWidth',
         type: `number | string`,
+        description: `Use numbers for pixels: maxWidth={100} and strings for percentages: maxWidth="100%"`,
       },
       {
         name: 'minHeight',
         type: `number | string`,
+        description: `Use numbers for pixels: minHeight={100} and strings for percentages: minHeight="100%"`,
       },
       {
         name: 'minWidth',
         type: `number | string`,
+        description: `Use numbers for pixels: minWidth={100} and strings for percentages: minWidth="100%"`,
       },
       {
         name: 'height',
         type: `number | string`,
+        description: `Use numbers for pixels: height={100} and strings for percentages: height="100%"`,
       },
       {
         name: 'width',
         type: `number | string`,
+        description: `Use numbers for pixels: width={100} and strings for percentages: width="100%"`,
+      },
+      {
+        name: 'opacity',
+        type: `0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1`,
       },
       {
         name: 'overflow',
@@ -167,10 +184,9 @@ card(
         href: 'absolutePositioning',
       },
       {
-        name: 'shape',
-        type: `"square" | "rounded" | "pill" | "circle" | "roundedTop" | "roundedBottom" | "roundedLeft" | "roundedRight"`,
-        defaultValue: 'square',
-        href: 'shapes',
+        name: 'rounding',
+        type: `"pill" | "circle" | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8`,
+        href: 'rounding',
       },
       {
         name: 'wrap',
@@ -492,6 +508,28 @@ card(
 );
 
 card(
+  <Card
+    description={`
+    Borders are controlled by the "borderSize" prop. Setting a size enables a solid light gray color in that width.
+  `}
+    id="border"
+    name="Borders"
+  >
+    <Combination borderSize={['sm', 'lg']}>
+      {props => (
+        <Box
+          width={60}
+          height={60}
+          rounding="circle"
+          color="white"
+          {...props}
+        />
+      )}
+    </Combination>
+  </Card>
+);
+
+card(
   <Combination
     id="color"
     name="Colors"
@@ -519,34 +557,43 @@ card(
       'darkWash',
     ]}
   >
-    {props => <Box width={60} height={60} shape="circle" {...props} />}
+    {props => <Box width={60} height={60} rounding="circle" {...props} />}
   </Combination>
 );
 
 card(
-  <Combination
-    id="shapes"
-    name="Shapes"
-    shape={[
-      'square',
-      'rounded',
-      'pill',
-      'circle',
-      'roundedTop',
-      'roundedRight',
-      'roundedBottom',
-      'roundedLeft',
-    ]}
+  <Card
+    description={`
+    Sets a border radius for the Box. Options are "circle" or "pill" for fully rounded corners or 0-8 representing the radius in boints.
+  `}
+    id="rounding"
+    name="Rounding"
   >
-    {props => (
-      <Box
-        color="gray"
-        width={props.shape === 'pill' ? 120 : 60}
-        height={60}
-        {...props}
-      />
-    )}
-  </Combination>
+    <Combination rounding={['pill', 'circle', 0, 1, 2, 3, 4, 5, 6, 7, 8]}>
+      {props => (
+        <Box
+          color="gray"
+          width={props.rounding === 'pill' ? 120 : 70}
+          height={70}
+          {...props}
+        />
+      )}
+    </Combination>
+  </Card>
+);
+
+card(
+  <Card
+    description={`
+    Sets a css opacity value for the Box. Be sure to maintain accessibility when using this prop. The contrast of the text should still be <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html" target="_blank">WCAG 2.0 AA compatible</a>.
+  `}
+    id="opacity"
+    name="Opacity"
+  >
+    <Combination opacity={[0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]}>
+      {props => <Box color="darkGray" width={60} height={60} {...props} />}
+    </Combination>
+  </Card>
 );
 
 export default cards;

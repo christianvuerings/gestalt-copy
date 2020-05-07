@@ -1,6 +1,5 @@
-// @flow
+// @flow strict
 import * as React from 'react';
-import james from './avatars/james.jpg';
 import PropTable from './components/PropTable.js';
 import Example from './components/Example.js';
 import PageHeader from './components/PageHeader.js';
@@ -55,8 +54,8 @@ card(
 function CardExample() {
   return (
     <Box maxWidth={236} padding={2} column={12}>
-      <Card image={<Avatar name="James Jones" src="${james}" />}>
-        <Text align="center" size="xl" weight="bold">
+      <Card image={<Avatar name="James Jones" src="https://i.ibb.co/2Fc00R3/james.jpg" />}>
+        <Text align="center" weight="bold">
           <Link href="https://pinterest.com">
             <Box paddingX={3} paddingY={2}>
               James Jones

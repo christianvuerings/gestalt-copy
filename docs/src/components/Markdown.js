@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import { Text } from 'gestalt';
 import marked, { Renderer } from 'marked';
@@ -28,7 +28,7 @@ const stripIndent = (str: string): string => {
   return str.replace(re, '');
 };
 
-export default function Markdown({ text, size = 'md' }: Props) {
+export default function Markdown({ text, size = 'lg' }: Props) {
   const renderer = new Renderer();
 
   renderer.code = (code, language) => {
@@ -39,7 +39,7 @@ export default function Markdown({ text, size = 'md' }: Props) {
   const html = marked(stripIndent(text), { renderer });
 
   return (
-    <Text leading="tall" size={size}>
+    <Text size={size}>
       {/* eslint-disable-next-line react/no-danger */}
       <div className="Markdown" dangerouslySetInnerHTML={{ __html: html }} />
     </Text>

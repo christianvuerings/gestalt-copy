@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -100,11 +100,9 @@ class VideoControls extends React.Component<Props> {
   handleVolumeChange = ({
     event,
   }: {
-    /* eslint-disable react/no-unused-prop-types */
     event:
       | SyntheticMouseEvent<HTMLDivElement>
       | SyntheticKeyboardEvent<HTMLDivElement>,
-    /* eslint-enable react/no-unused-prop-types */
   }) => {
     const { onVolumeChange } = this.props;
     onVolumeChange(event);
@@ -145,7 +143,7 @@ class VideoControls extends React.Component<Props> {
           </Touchable>
         </Box>
         <Box width={50} padding={2}>
-          <Text color="white" align="right" size="xs">
+          <Text color="white" align="right" size="sm">
             {timeToString(currentTime)}
           </Text>
         </Box>
@@ -159,7 +157,7 @@ class VideoControls extends React.Component<Props> {
           />
         </Box>
         <Box width={50} padding={2}>
-          <Text color="white" align="right" size="xs">
+          <Text color="white" align="right" size="sm">
             {timeToString(duration)}
           </Text>
         </Box>

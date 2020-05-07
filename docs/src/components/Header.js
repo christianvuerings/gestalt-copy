@@ -1,9 +1,23 @@
-// @flow
+// @flow strict
 import React from 'react';
-import { Box, Text, Icon, Link as GestaltLink } from 'gestalt';
+import { Box, Text, Icon, IconButton, Link as GestaltLink } from 'gestalt';
 import Link from './Link.js';
 
 export default function Header() {
+  const [isRTL, setIsRTL] = React.useState(false);
+
+  const toggleRTL = () => {
+    if (document && document.documentElement) {
+      document.documentElement.dir = isRTL ? 'ltr' : 'rtl';
+      setIsRTL(!isRTL);
+    }
+  };
+  const togglePageDirSvgPath = {
+    __path: isRTL
+      ? 'M9 10v5h2V4h2v11h2V4h2V2H9C6.79 2 5 3.79 5 6s1.79 4 4 4zm12 8l-4-4v3H5v2h12v3l4-4z'
+      : 'M10 10v5h2V4h2v11h2V4h2V2h-8C7.79 2 6 3.79 6 6s1.79 4 4 4zm-2 7v-3l-4 4 4 4v-3h12v-2H8z',
+  };
+
   return (
     <Box
       paddingY={2}
@@ -16,8 +30,7 @@ export default function Header() {
       alignItems="center"
     >
       <Box marginStart={-2} marginEnd={-2}>
-        <Text size="lg" color="white" weight="bold">
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <Text color="white" weight="bold">
           <Link to="/">
             <Box padding={2}>
               <Box
@@ -44,8 +57,23 @@ export default function Header() {
 
       <Box flex="grow" />
 
-      <Box marginStart={-2} marginEnd={-2} display="flex" direction="row">
-        <Text color="white" size="lg">
+      <Box
+        marginStart={-2}
+        marginEnd={-2}
+        display="flex"
+        direction="row"
+        alignItems="center"
+      >
+        <Box>
+          <IconButton
+            size="md"
+            accessibilityLabel="toggle page direction"
+            iconColor="white"
+            dangerouslySetSvgPath={togglePageDirSvgPath}
+            onClick={toggleRTL}
+          />
+        </Box>
+        <Text color="white">
           <GestaltLink
             href="https://codesandbox.io/s/k5plvp9v8v"
             target="blank"
@@ -54,7 +82,7 @@ export default function Header() {
           </GestaltLink>
         </Text>
 
-        <Text color="white" size="lg">
+        <Text color="white">
           <GestaltLink
             href="https://github.com/pinterest/gestalt"
             target="blank"

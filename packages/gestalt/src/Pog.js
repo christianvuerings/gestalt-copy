@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -15,30 +15,41 @@ const SIZE_NAME_TO_PIXEL = {
   xl: 56,
 };
 
+const SIZE_NAME_TO_ICON_SIZE_PIXEL = {
+  xs: 12,
+  sm: 16,
+  md: 18,
+  lg: 20,
+  xl: 24,
+};
+
 type Props = {|
   active?: boolean,
   bgColor?:
     | 'transparent'
+    | 'darkGray'
     | 'transparentDarkGray'
     | 'gray'
     | 'lightGray'
     | 'white'
-    | 'blue',
+    | 'red',
   dangerouslySetSvgPath?: { __path: string },
   focused?: boolean,
   hovered?: boolean,
-  iconColor?: 'gray' | 'darkGray' | 'red' | 'blue' | 'white' | 'orange',
+  selected?: boolean,
   icon?: $Keys<typeof icons>,
+  iconColor?: 'gray' | 'darkGray' | 'red' | 'white',
   size?: $Keys<typeof SIZE_NAME_TO_PIXEL>,
 |};
 
 const defaultIconButtonIconColors = {
-  transparent: 'gray',
+  darkGray: 'white',
   gray: 'white',
   lightGray: 'gray',
-  white: 'gray',
+  transparent: 'gray',
+  red: 'white',
   transparentDarkGray: 'white',
-  blue: 'white',
+  white: 'gray',
 };
 
 export default function Pog(props: Props) {
@@ -48,19 +59,25 @@ export default function Pog(props: Props) {
     dangerouslySetSvgPath,
     focused = false,
     hovered = false,
-    iconColor = defaultIconButtonIconColors[bgColor],
     icon,
+    iconColor,
+    selected = false,
     size = 'md',
   } = props;
 
-  const iconSize = SIZE_NAME_TO_PIXEL[size] / 2;
+  const iconSize = SIZE_NAME_TO_ICON_SIZE_PIXEL[size];
+
+  const color =
+    (selected && 'white') || iconColor || defaultIconButtonIconColors[bgColor];
 
   const inlineStyle = {
     height: SIZE_NAME_TO_PIXEL[size],
     width: SIZE_NAME_TO_PIXEL[size],
   };
 
-  const classes = classnames(styles.pog, styles[bgColor], {
+  const classes = classnames(styles.pog, {
+    [styles[bgColor]]: !selected,
+    [styles.selected]: selected,
     [styles.active]: active,
     [styles.focused]: focused,
     [styles.hovered]: hovered && !focused && !active,
@@ -68,7 +85,7 @@ export default function Pog(props: Props) {
 
   return (
     <div className={classes} style={inlineStyle}>
-      <Box shape="circle">
+      <Box rounding="circle">
         {/*
           We're explicitly setting an empty string as a label on the Icon since we
           already have an aria-label on the button container.
@@ -77,7 +94,7 @@ export default function Pog(props: Props) {
         */}
         <Icon
           accessibilityLabel=""
-          color={iconColor}
+          color={color}
           dangerouslySetSvgPath={dangerouslySetSvgPath}
           icon={icon}
           size={iconSize}
@@ -91,25 +108,19 @@ Pog.propTypes = {
   active: PropTypes.bool,
   bgColor: PropTypes.oneOf([
     'transparent',
+    'darkGray',
     'transparentDarkGray',
     'gray',
     'lightGray',
     'white',
-    'blue',
   ]),
   dangerouslySetSvgPath: PropTypes.shape({
     __path: PropTypes.string,
   }),
   focused: PropTypes.bool,
   hovered: PropTypes.bool,
-  iconColor: PropTypes.oneOf([
-    'gray',
-    'darkGray',
-    'red',
-    'blue',
-    'white',
-    'orange',
-  ]),
   icon: PropTypes.oneOf(Object.keys(icons)),
+  iconColor: PropTypes.oneOf(['gray', 'darkGray', 'red', 'white']),
+  selected: PropTypes.bool,
   size: PropTypes.oneOf(Object.keys(SIZE_NAME_TO_PIXEL)),
 };

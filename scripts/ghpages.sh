@@ -13,7 +13,7 @@ set -x
 repo=${1:-https://github.com/christianvuerings/gestalt-copy.git}
 
 git checkout -b tmp-deploy
-(cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt')
+(cd docs && NODE_ENV=production yarn build --output-public-path '/gestalt-copy')
 git add -f docs/build
 git commit -m "Deployed to Github Pages" --no-verify
 git subtree split --prefix docs/build -b tmp-gh-pages

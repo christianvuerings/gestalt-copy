@@ -1,7 +1,8 @@
+// @flow strict
 export default {
   plain: {
     color: '#c5c8c6',
-    backgroundColor: '#1d1f21',
+    backgroundColor: '#111',
     lineHeight: 1.4,
     fontSize: 16,
     fontFamily:

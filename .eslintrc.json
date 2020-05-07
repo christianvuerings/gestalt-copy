@@ -26,14 +26,19 @@
     "import"
   ],
   "rules": {
+    "eslint-comments/no-unused-disable": "error",
+    "flowtype/require-valid-file-annotation": [
+      "error",
+      "always",
+      {
+        "annotationStyle": "line",
+        "strict": true
+      }
+    ],
     "import/extensions": ["error", "always", { "ignorePackages": true }],
     "import/no-extraneous-dependencies": "off",
     "import/no-relative-parent-imports": "error",
     "import/no-unresolved": "off",
-    "jsx-a11y/label-has-for": [
-      "error",
-      { "components": ["label"], "allowChildren": true }
-    ],
     "jsx-a11y/label-has-associated-control": [
       "error",
       {
@@ -42,6 +47,10 @@
         "controlComponents": ["CheckBox"],
         "depth": 3
       }
+    ],
+    "jsx-a11y/label-has-for": [
+      "error",
+      { "components": ["label"], "allowChildren": true }
     ],
     "no-await-in-loop": "off",
     "no-return-await": "off",
@@ -61,7 +70,13 @@
   },
   "overrides": [
     {
-      "files": ["**/*.test.js", "**/*.integration.js"],
+      "files": ["packages/gestalt-codemods/**/*.js", "scripts/**/*.js"],
+      "rules": {
+        "flowtype/require-valid-file-annotation": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.js"],
       "env": {
         "jest": true
       },

@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 
 /*
 
@@ -22,7 +22,6 @@ import borders from './Borders.css';
 import colors from './Colors.css';
 import layout from './Layout.css';
 import whitespace from './boxWhitespace.css';
-import whitespaceLegacy from './Whitespace.css';
 import {
   concat,
   fromClassName,
@@ -49,8 +48,6 @@ Box's type definition is exhaustive. With the exception of `dangerouslySetInline
 
 */
 
-type NatBoint = 1 | 2 | 3 | 4 | 5 | 6;
-type IntBoint = -6 | -5 | -4 | -3 | -2 | -1 | NatBoint;
 type Display = 'none' | 'flex' | 'block' | 'inlineBlock' | 'visuallyHidden';
 type Direction = 'row' | 'column';
 type Column = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -86,6 +83,7 @@ type Margin =
   | 12
   | 'auto';
 type Padding = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type Rounding = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 'circle' | 'pill';
 type PropType = {
   children?: React.Node,
   dangerouslySetInlineStyle?: {
@@ -96,15 +94,6 @@ type PropType = {
   sm?: ResponsiveProps,
   md?: ResponsiveProps,
   lg?: ResponsiveProps,
-  deprecatedPadding?: NatBoint | { x?: NatBoint, y?: NatBoint },
-  deprecatedMargin?:
-    | IntBoint
-    | {
-        top?: IntBoint,
-        right?: IntBoint | 'auto',
-        bottom?: IntBoint,
-        left?: IntBoint | 'auto',
-      },
 
   display?: Display,
   column?: Column,
@@ -130,6 +119,7 @@ type PropType = {
   alignItems?: 'start' | 'end' | 'center' | 'baseline' | 'stretch',
   alignSelf?: 'auto' | 'start' | 'end' | 'center' | 'baseline' | 'stretch',
   bottom?: boolean,
+  borderSize?: 'sm' | 'md' | 'none',
   color?:
     | 'blue'
     | 'darkGray'
@@ -190,6 +180,8 @@ type PropType = {
   minHeight?: number | string,
   minWidth?: number | string,
 
+  opacity?: 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1,
+
   overflow?: 'visible' | 'hidden' | 'scroll' | 'scrollX' | 'scrollY' | 'auto',
 
   padding?: Padding,
@@ -209,15 +201,7 @@ type PropType = {
 
   position?: 'static' | 'absolute' | 'relative' | 'fixed',
   right?: boolean,
-  shape?:
-    | 'square'
-    | 'rounded'
-    | 'pill'
-    | 'circle'
-    | 'roundedTop'
-    | 'roundedBottom'
-    | 'roundedLeft'
-    | 'roundedRight',
+  rounding?: Rounding,
   shrink?: boolean,
   top?: boolean,
   width?: number | string,
@@ -245,6 +229,21 @@ const transformNumberOrPassthrough = (selector: string) => (
 
   if (m === 'auto') {
     return fromClassName(whitespace[`${selector}Auto`]);
+  }
+
+  return identity();
+};
+const rounding = (r: Rounding): Style => {
+  if (typeof r === 'number') {
+    return bind(range('rounding'), borders)(r);
+  }
+
+  if (r === 'circle') {
+    return fromClassName(borders.circle);
+  }
+
+  if (r === 'pill') {
+    return fromClassName(borders.pill);
   }
 
   return identity();
@@ -307,6 +306,14 @@ const lgPaddingX = bind(rangeWithoutZero('lgPaddingX'), whitespace);
 const lgPaddingY = bind(rangeWithoutZero('lgPaddingY'), whitespace);
 const lgPadding = union(lgPaddingX, lgPaddingY);
 
+const opacityMap = mapClassName(name => styles[name]);
+const opacity = val => {
+  if (val > 0 && val < 1) {
+    return opacityMap(range('opacity0')(val * 10));
+  }
+  return opacityMap(range('opacity')(val));
+};
+
 /*
 
 These functions are legacy. I'd like to get rid of most of this file's dependency on importing `./style.js` directly once these are removed.
@@ -332,8 +339,6 @@ const display = value => {
   }
 };
 const column = range('Col');
-
-const formatIntBoint = x => (x < 0 ? `n${Math.abs(x)}` : x.toString());
 
 /*
 
@@ -480,6 +485,16 @@ const propToFn = {
     // default: auto
   }),
   bottom: toggle(layout.bottom0),
+  borderSize: value =>
+    concat([
+      mapping({
+        sm: borders.sizeSm,
+        lg: borders.sizeLg,
+        // default: none
+      })(value),
+      fromClassName(borders.solid),
+      fromClassName(borders.borderColorLightGray),
+    ]),
   color: mapping({
     blue: colors.blueBg,
     darkGray: colors.darkGrayBg,
@@ -519,47 +534,6 @@ const propToFn = {
     // default: start
   }),
   left: toggle(layout.left0),
-  deprecatedMargin: value => {
-    let mt = identity();
-    let mb = identity();
-    let ml = identity();
-    let mr = identity();
-    switch (typeof value) {
-      case 'number':
-        return fromClassName(whitespaceLegacy[`m${formatIntBoint(value)}`]);
-      case 'object':
-        if (value.top) {
-          mt = fromClassName(
-            whitespaceLegacy[`mt${formatIntBoint(value.top)}`]
-          );
-        }
-
-        if (value.bottom) {
-          mb = fromClassName(
-            whitespaceLegacy[`mb${formatIntBoint(value.bottom)}`]
-          );
-        }
-
-        if (value.left) {
-          ml = fromClassName(
-            value.left === 'auto'
-              ? whitespaceLegacy.mlAuto
-              : whitespaceLegacy[`ml${formatIntBoint(value.left)}`]
-          );
-        }
-
-        if (value.right) {
-          mr = fromClassName(
-            value.right === 'auto'
-              ? whitespaceLegacy.mrAuto
-              : whitespaceLegacy[`mr${formatIntBoint(value.right)}`]
-          );
-        }
-        return concat([mt, mb, ml, mr]);
-      default:
-        return identity();
-    }
-  },
   marginStart,
   marginEnd,
   margin,
@@ -586,6 +560,7 @@ const propToFn = {
   maxWidth: maxWidth => fromInlineStyle({ maxWidth }),
   minHeight: minHeight => fromInlineStyle({ minHeight }),
   minWidth: minWidth => fromInlineStyle({ minWidth }),
+  opacity,
   overflow: mapping({
     hidden: layout.overflowHidden,
     scroll: layout.overflowScroll,
@@ -594,23 +569,6 @@ const propToFn = {
     scrollY: layout.overflowScrollY,
     // default: visible
   }),
-  deprecatedPadding: value => {
-    switch (typeof value) {
-      case 'number':
-        return fromClassName(whitespaceLegacy[`p${value}`]);
-      case 'object':
-        return concat([
-          value.x
-            ? fromClassName(whitespaceLegacy[`px${value.x}`])
-            : identity(),
-          value.y
-            ? fromClassName(whitespaceLegacy[`py${value.y}`])
-            : identity(),
-        ]);
-      default:
-        return identity();
-    }
-  },
   padding,
   paddingX,
   paddingY,
@@ -630,16 +588,7 @@ const propToFn = {
     // default: static
   }),
   right: toggle(layout.right0),
-  shape: mapping({
-    circle: borders.circle,
-    pill: borders.pill,
-    rounded: borders.rounded,
-    roundedBottom: borders.roundedBottom,
-    roundedLeft: borders.roundedLeft,
-    roundedRight: borders.roundedRight,
-    roundedTop: borders.roundedTop,
-    // default: square
-  }),
+  rounding,
   top: toggle(layout.top0),
   width: width => fromInlineStyle({ width }),
   wrap: toggle(layout.flexWrap),
@@ -656,7 +605,7 @@ const propToFn = {
 
 const contains = (key, arr) => arr.indexOf(key) >= 0;
 const omit = (keys, obj) =>
-  Object.keys(obj).reduce((acc, k) => {
+  Object.keys(obj).reduce((acc, k: string) => {
     if (contains(k, keys)) {
       return acc;
     }
@@ -790,6 +739,20 @@ const PaddingPropType = PropTypes.oneOf([
   12,
 ]);
 
+const RoundingPropType = PropTypes.oneOf([
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  'circle',
+  'pill',
+]);
+
 // $FlowIssue https://github.com/facebook/flow/issues/7484
 Box.propTypes = {
   children: PropTypes.node,
@@ -825,22 +788,6 @@ Box.propTypes = {
     ]),
     column: PropTypes.number,
   }),
-  deprecatedMargin: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.shape({
-      top: PropTypes.number,
-      bottom: PropTypes.number,
-      left: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
-      right: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(['auto'])]),
-    }),
-  ]),
-  deprecatedPadding: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-  ]),
 
   display: PropTypes.oneOf([
     'none',
@@ -907,6 +854,7 @@ Box.propTypes = {
     'stretch',
   ]),
   bottom: PropTypes.bool,
+  borderSize: PropTypes.oneOf(['sm', 'lg', 'none']),
   color: PropTypes.oneOf([
     'blue',
     'darkGray',
@@ -976,6 +924,8 @@ Box.propTypes = {
   minHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   minWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
+  opacity: PropTypes.oneOf([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]),
+
   overflow: PropTypes.oneOf([
     'visible',
     'hidden',
@@ -1003,16 +953,7 @@ Box.propTypes = {
 
   position: PropTypes.oneOf(['static', 'absolute', 'relative', 'fixed']),
   right: PropTypes.bool,
-  shape: PropTypes.oneOf([
-    'square',
-    'rounded',
-    'pill',
-    'circle',
-    'roundedTop',
-    'roundedBottom',
-    'roundedLeft',
-    'roundedRight',
-  ]),
+  rounding: RoundingPropType,
   top: PropTypes.bool,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   wrap: PropTypes.bool,

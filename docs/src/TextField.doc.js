@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import Example from './components/Example.js';
 import PropTable from './components/PropTable.js';
@@ -31,10 +31,20 @@ card(
         href: 'errorMessageExample',
       },
       {
+        name: 'helperText',
+        type: 'string',
+        description: 'More information about how to complete the form field',
+        href: 'helperText',
+      },
+      {
         name: 'id',
         type: 'string',
         required: true,
         href: 'basicExample',
+      },
+      {
+        name: 'label',
+        type: 'string',
       },
       {
         name: 'name',
@@ -68,6 +78,13 @@ card(
         href: 'basicExample',
       },
       {
+        name: 'size',
+        type: '"md" | "lg"',
+        required: false,
+        description: 'md: 40px, lg: 48px',
+        defaultValue: 'md',
+      },
+      {
         name: 'type',
         type: `"date" | "email" | "number" | "password" | "text" | "url"`,
         defaultValue: 'text',
@@ -90,35 +107,18 @@ card(
     A \`TextField\` will expand to fill the width of the parent container.
   `}
     defaultCode={`
-class Example extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this._handleChange.bind(this);
-    this.state = {
-      value: ""
-    };
-  }
-  _handleChange({ value }) {
-    this.setState({ value });
-  }
-  render() {
-    return (
-      <Box>
-        <Box marginBottom={2}>
-          <Label htmlFor="email">
-            <Text>Email</Text>
-          </Label>
-        </Box>
-        <TextField
-          id="email"
-          onChange={this.handleChange}
-          placeholder="Email Address"
-          value={this.state.value}
-          type="email"
-        />
-      </Box>
-    );
-  }
+function Example(props) {
+  const [value, setValue] = React.useState('')
+  return (
+    <TextField
+      id="email"
+      onChange={({value}) => setValue(value)}
+      placeholder="Add email"
+      label="Email"
+      value={value}
+      type="email"
+    />
+  );
 }
 `}
   />
@@ -129,35 +129,42 @@ card(
     id="disabledExample"
     name="Example: Disabled"
     defaultCode={`
-class Example extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this._handleChange.bind(this);
-    this.state = {
-      value: ""
-    };
-  }
-  _handleChange({ value }) {
-    this.setState({ value });
-  }
-  render() {
-    return (
-      <Box>
-        <Box marginBottom={2}>
-          <Label htmlFor="name">
-            <Text>Disabled</Text>
-          </Label>
-        </Box>
-        <TextField
-          disabled
-          id="name"
-          onChange={this.handleChange}
-          placeholder="Name"
-          value={this.state.value}
-        />
-      </Box>
-    );
-  }
+function Example(props) {
+  const [value, setValue] = React.useState('')
+  return (
+    <TextField
+      disabled
+      id="name"
+      onChange={({value}) => setValue(value)}
+      placeholder="Name"
+      label="Disabled"
+      value={value}
+    />
+  );
+}
+`}
+  />
+);
+
+card(
+  <Example
+    id="helperText"
+    name="Example: Helper Text"
+    description={`Whenever you want to provide more information about a form field, you should use \`helperText\`.`}
+    defaultCode={`
+function Example(props) {
+  const [value, setValue] = React.useState('')
+  return (
+    <Box padding={2} color="white">
+      <TextField
+        id="username"
+        helperText={'https://pinterest.com/' + value}
+        onChange={({value}) => setValue(value)}
+        label="Username"
+        value={value}
+      />
+    </Box>
+  );
 }
 `}
   />
@@ -171,34 +178,17 @@ card(
     A TextField can display its own error message.
     To use our errors, simply pass in an \`errorMessage\` when there is an error present and we will     handle the rest.`}
     defaultCode={`
-class Example extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this._handleChange.bind(this);
-    this.state = {
-      value: ""
-    };
-  }
-  _handleChange({ value }) {
-    this.setState({ value });
-  }
-  render() {
-    return (
-      <Box>
-        <Box marginBottom={2}>
-          <Label htmlFor="aboutme">
-            <Text>With an error message</Text>
-          </Label>
-        </Box>
-        <TextField
-          id="aboutme"
-          errorMessage={!this.state.value ? "This field can't be blank!" : null}
-          onChange={this.handleChange}
-          value={this.state.value}
-        />
-      </Box>
-    );
-  }
+function Example(props) {
+  const [value, setValue] = React.useState('')
+  return (
+    <TextField
+      id="aboutme"
+      errorMessage={!value ? "This field can't be blank!" : null}
+      onChange={({value}) => setValue(value)}
+      label="With an error message"
+      value={value}
+    />
+  );
 }
 `}
   />

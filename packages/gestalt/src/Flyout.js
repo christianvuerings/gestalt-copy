@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Controller from './Controller.js';
@@ -6,12 +6,13 @@ import Controller from './Controller.js';
 type Props = {|
   anchor: ?HTMLElement,
   children?: React.Node,
+  color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray',
   idealDirection?: 'up' | 'right' | 'down' | 'left',
   onDismiss: () => void,
   positionRelativeToAnchor?: boolean,
-  color?: 'blue' | 'orange' | 'red' | 'white' | 'darkGray',
   shouldFocus?: boolean,
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | number,
+  showCaret?: boolean,
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number,
 |};
 
 export default function Flyout(props: Props) {
@@ -23,6 +24,7 @@ export default function Flyout(props: Props) {
     positionRelativeToAnchor = true,
     color = 'white',
     shouldFocus = true,
+    showCaret = false,
     size,
   } = props;
 
@@ -34,11 +36,14 @@ export default function Flyout(props: Props) {
     <Controller
       anchor={anchor}
       bgColor={color}
+      border
+      caret={showCaret}
       idealDirection={idealDirection}
       onDismiss={onDismiss}
       positionRelativeToAnchor={positionRelativeToAnchor}
+      rounding={4}
       shouldFocus={shouldFocus}
-      size={size}
+      size={size === 'flexible' ? null : size}
     >
       {children}
     </Controller>
@@ -59,4 +64,5 @@ Flyout.propTypes = {
     PropTypes.number,
     PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']), // default: sm
   ]),
+  showCaret: PropTypes.bool,
 };

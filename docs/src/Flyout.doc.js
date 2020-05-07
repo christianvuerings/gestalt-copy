@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import PropTable from './components/PropTable.js';
 import Example from './components/Example.js';
@@ -66,9 +66,16 @@ card(
         href: 'errorFlyout',
       },
       {
+        name: 'showCaret',
+        type: 'boolean',
+        defaultValue: false,
+        description: 'Show the caret on the flyout',
+        href: 'showCaret',
+      },
+      {
         name: 'size',
-        type: `'xs' | 'sm' | 'md' | 'lg' | 'xl' | number`,
-        description: `xs: 185px, sm: 230px, md: 284px, lg: 320px, xl:375px`,
+        type: `'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'flexible' | number`,
+        description: `xs: 180px, sm: 230px, md: 284px, lg: 320px, xl: 360px, flexible: no inherent sizing from flyout`,
         defaultValue: 'sm',
         href: 'basicExample',
       },
@@ -81,39 +88,29 @@ card(
     id="basicExample"
     name="Example"
     defaultCode={`
-class FlyoutExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-    this.handleClick = this._handleClick.bind(this);
-    this.handleDismiss = this._handleDismiss.bind(this);
-    this.anchorRef = React.createRef();
-  }
-  _handleClick() {
-    this.setState(() => ({ open: !this.state.open }));
-  }
-  _handleDismiss() {
-    this.setState(() => ({ open: false }));
-  }
-  render() {
-    return (
-      <Box>
-        <Box display="inlineBlock" ref={this.anchorRef}>
-          <Button
-            accessibilityExpanded={!!this.state.open}
-            accessibilityHaspopup
-            onClick={this.handleClick}
-            text="Help"
-          />
-        </Box>
-        {this.state.open &&
+function FlyoutExample() {
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef();
+  return (
+    <Box>
+      <Box display="inlineBlock" ref={anchorRef}>
+        <Button
+          accessibilityExpanded={!!open}
+          accessibilityHaspopup
+          onClick={() => setOpen(!open)}
+          text="Help"
+        />
+      </Box>
+      {open &&
+        <Layer>
           <Flyout
-            anchor={this.anchorRef.current}
+            anchor={anchorRef.current}
             idealDirection="up"
-            onDismiss={this.handleDismiss}
+            onDismiss={() => setOpen(false)}
+            positionRelativeToAnchor={false}
             size="md"
           >
-            <Box padding={3}>
+            <Box padding={3} display="flex" alignItems="center" direction="column" column={12}>
               <Text align="center" weight="bold">
                 Need help with something? Check out our Help Center.
               </Text>
@@ -121,10 +118,52 @@ class FlyoutExample extends React.Component {
                 <Button color="red" text="Visit the help center" />
               </Box>
             </Box>
-          </Flyout>}
+          </Flyout>
+        </Layer>}
+    </Box>
+  );
+}
+`}
+  />
+);
+
+card(
+  <Example
+    id="showCaret"
+    name="Example: Show Caret"
+    defaultCode={`
+function FlyoutExample() {
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef();
+  return (
+    <Box>
+      <Box display="inlineBlock" ref={anchorRef}>
+        <Button
+          accessibilityExpanded={!!open}
+          accessibilityHaspopup
+          onClick={() => setOpen(!open)}
+          text="Help"
+        />
       </Box>
-    );
-  }
+      {open &&
+        <Layer>
+          <Flyout
+            anchor={anchorRef.current}
+            idealDirection="up"
+            showCaret
+            onDismiss={() => setOpen(false)}
+            positionRelativeToAnchor={false}
+            size="md"
+          >
+            <Box padding={3} column={12}>
+              <Text align="center" weight="bold">
+                Flyout with a caret, not a 🥕
+              </Text>
+            </Box>
+          </Flyout>
+        </Layer>}
+    </Box>
+  );
 }
 `}
   />
@@ -137,32 +176,22 @@ card(
     description={`Flyout can also take on additional roles. Like [TextField](#TextField) and [TextArea](#TextArea), this component
 can be used to highlight errors on other types of form fields by setting the \`color\` to \`red.\``}
     defaultCode={`
-class ErrorFlyoutExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { open: false };
-    this.handleClick = this._handleClick.bind(this);
-    this.handleDismiss = this._handleDismiss.bind(this);
-    this.anchorRef = React.createRef();
-  }
-  _handleClick() {
-    this.setState(() => ({ open: !this.state.open }));
-  }
-  _handleDismiss() {
-    this.setState(() => ({ open: false }));
-  }
-  render() {
-    return (
-      <Box>
-        <Box display="inlineBlock" ref={this.anchorRef}>
-          <Button onClick={this.handleClick} text="Remove" />
-        </Box>
-        {this.state.open &&
+function ErrorFlyoutExample() {
+  const [open, setOpen] = React.useState(false);
+  const anchorRef = React.useRef();
+  return (
+    <Box>
+      <Box display="inlineBlock" ref={anchorRef}>
+        <Button onClick={() => setOpen(!open)} text="Remove" />
+      </Box>
+      {open &&
+        <Layer>
           <Flyout
-            anchor={this.anchorRef.current}
-            idealDirection="up"
-            onDismiss={this.handleDismiss}
+            anchor={anchorRef.current}
             color="red"
+            idealDirection="up"
+            onDismiss={() => setOpen(false)}
+            positionRelativeToAnchor={false}
             shouldFocus={false}
             size="md"
           >
@@ -172,10 +201,10 @@ class ErrorFlyoutExample extends React.Component {
               </Text>
             </Box>
           </Flyout>
-        }
-      </Box>
-    );
-  }
+        </Layer>
+      }
+    </Box>
+  );
 }
 `}
   />

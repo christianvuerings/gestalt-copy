@@ -24,22 +24,6 @@
   quotes: "「" "」";
 }
 
-/* kerning */
-
-.letterSpacing {
-  letter-spacing: -0.4px;
-}
-
-/* leading */
-
-.leadingShort {
-  line-height: 1.2;
-}
-
-.leadingTall {
-  line-height: 1.5;
-}
-
 /* font weight */
 
 .fontWeightNormal {
@@ -73,7 +57,6 @@
 /* overflow */
 
 .breakWord {
-  hyphens: auto;
   word-wrap: break-word;
 }
 
@@ -106,6 +89,6 @@ html[dir="rtl"] .alignRight {
   text-align: center;
 }
 
-.textJustify {
+.alignJustify {
   text-align: justify;
 }

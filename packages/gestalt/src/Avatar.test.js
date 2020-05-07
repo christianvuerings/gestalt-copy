@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import React from 'react';
 import { create } from 'react-test-renderer';
 import Avatar from './Avatar.js';
@@ -14,8 +14,15 @@ describe('Avatar', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders with an empty name', () => {
+  it('renders with an empty name shows default icon', () => {
     const tree = create(<Avatar name="" />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders the default icon', () => {
+    const tree = create(
+      <Avatar name="Carlos" __dangerouslyUseDefaultIcon />
+    ).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
@@ -32,6 +39,17 @@ describe('Avatar', () => {
   it('renders the correct src', () => {
     const tree = create(
       <Avatar name="Strava" src="http://pinterest.com/img/strave.png" />
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders the correct size - xs', () => {
+    const tree = create(
+      <Avatar
+        name="Strava"
+        src="http://pinterest.com/img/strave.png"
+        size="xs"
+      />
     ).toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -69,14 +87,12 @@ describe('Avatar', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders the Pinterest P on verified', () => {
+  it('renders the correct size - xl', () => {
     const tree = create(
       <Avatar
         name="Strava"
         src="http://pinterest.com/img/strave.png"
-        size="md"
-        verified
-        icon="pinterest"
+        size="xs"
       />
     ).toJSON();
     expect(tree).toMatchSnapshot();

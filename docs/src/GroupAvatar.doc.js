@@ -1,10 +1,7 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import { GroupAvatar } from 'gestalt';
 import PropTable from './components/PropTable.js';
-import james from './avatars/james.jpg';
-import keerthi from './avatars/keerthi.jpg';
-import shanice from './avatars/shanice.jpg';
 import Example from './components/Example.js';
 import Combination from './components/Combination.js';
 import PageHeader from './components/PageHeader.js';
@@ -36,9 +33,10 @@ card(
       },
       {
         name: 'size',
-        type: `"sm" | "md" | "lg"`,
+        type: `"xs" | "sm" | "md" | "lg" | "xl" | "fit"`,
+        defaultValue: 'fit',
         description:
-          'sm: 24px, md: 40px, lg: 72px. If size is undefined, Avatar will fill 100% of the parent container width',
+          'xs: 24px, sm: 32px, md: 48px, lg: 64px, xl: 120px. If size is `fit`, GroupAvatar will fill 100% of the parent container width',
       },
     ]}
   />
@@ -46,15 +44,15 @@ card(
 
 const user1 = {
   name: 'Keerthi',
-  src: keerthi,
+  src: 'https://i.ibb.co/ZfCZrY8/keerthi.jpg',
 };
 const user2 = {
   name: 'Shanice',
-  src: shanice,
+  src: 'https://i.ibb.co/7tGKGvb/shanice.jpg',
 };
 const user3 = {
   name: 'James',
-  src: james,
+  src: 'https://i.ibb.co/2Fc00R3/james.jpg',
 };
 
 card(
@@ -66,11 +64,11 @@ card(
     collaborators={[
       {
         name: 'Keerthi',
-        src: '${keerthi}',
+        src: 'https://i.ibb.co/ZfCZrY8/keerthi.jpg',
       },
       {
         name: 'Shanice',
-        src: '${shanice}',
+        src: 'https://i.ibb.co/7tGKGvb/shanice.jpg',
       },
     ]}
     size="lg"
@@ -81,19 +79,28 @@ card(
 );
 
 card(
-  <Combination name="Size Combinations: 1 Person" size={['sm', 'md', 'lg']}>
+  <Combination
+    name="Size Combinations: 1 Person"
+    size={['xs', 'sm', 'md', 'lg', 'xl']}
+  >
     {props => <GroupAvatar collaborators={[user1]} {...props} />}
   </Combination>
 );
 
 card(
-  <Combination name="Size Combinations: 2 People" size={['sm', 'md', 'lg']}>
+  <Combination
+    name="Size Combinations: 2 People"
+    size={['xs', 'sm', 'md', 'lg', 'xl']}
+  >
     {props => <GroupAvatar collaborators={[user1, user3]} {...props} />}
   </Combination>
 );
 
 card(
-  <Combination name="Size Combinations: 3 People" size={['sm', 'md', 'lg']}>
+  <Combination
+    name="Size Combinations: 3 People"
+    size={['xs', 'sm', 'md', 'lg', 'xl']}
+  >
     {props => <GroupAvatar collaborators={[user1, user3, user2]} {...props} />}
   </Combination>
 );
@@ -146,10 +153,10 @@ card(
     <GroupAvatar collaborators={[{ name: 'Julia' }]} />
   </Box>
   <Box column={2} padding={2}>
-    <GroupAvatar collaborators={[{ name: 'James', src: "${james}" }, { name: 'Julia' }]} />
+    <GroupAvatar collaborators={[{ name: 'James', src: "https://i.ibb.co/2Fc00R3/james.jpg" }, { name: 'Julia' }]} />
   </Box>
   <Box column={3} padding={2}>
-    <GroupAvatar collaborators={[{ name: 'Keerthi', src: "${keerthi}" }, { name: 'Shanice', src: "${shanice}" }, { name: 'Julia' }]} />
+    <GroupAvatar collaborators={[{ name: 'Keerthi', src: "https://i.ibb.co/ZfCZrY8/keerthi.jpg" }, { name: 'Shanice', src: "https://i.ibb.co/7tGKGvb/shanice.jpg" }, { name: 'Julia' }]} />
   </Box>
 </Box>
   `}

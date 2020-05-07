@@ -1,10 +1,16 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
-  "ignoreFiles": ["packages/*/dist/**/*.css"],
+  "ignoreFiles": ["packages/*/dist/**/*.css", "packages/**/*.js"],
   "plugins": ["stylelint-order"],
   "rules": {
     "color-named": [
       "never",
+      {
+        "ignoreProperties": ["composes"]
+      }
+    ],
+    "value-keyword-case": [
+      "lower",
       {
         "ignoreProperties": ["composes"]
       }

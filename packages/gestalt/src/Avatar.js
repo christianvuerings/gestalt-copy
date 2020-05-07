@@ -1,10 +1,11 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from './Box.js';
 import Icon from './Icon.js';
 import Image from './Image.js';
 import Mask from './Mask.js';
+import PersonSvg from './icons/person.svg';
 import typography from './Typography.css';
 
 const Square = (props: *) => (
@@ -19,11 +20,28 @@ const Square = (props: *) => (
   </Box>
 );
 
-const DefaultAvatar = ({ name }: { name: string }) => {
+const DefaultAvatar = ({
+  name,
+  useDefaultIcon,
+}: {|
+  name: string,
+  useDefaultIcon: boolean,
+|}) => {
   const firstInitial = name ? [...name][0].toUpperCase() : '';
   return (
-    <Square color="gray" shape="circle">
-      {firstInitial && (
+    <Square color="lightGray" rounding="circle" overflow="hidden">
+      {useDefaultIcon || !firstInitial ? (
+        <svg
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+          version="1.1"
+          viewBox="-3 -8 30 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {name && <title>{name}</title>}
+          <path d={PersonSvg} fill="#111" />
+        </svg>
+      ) : (
         <svg
           width="100%"
           viewBox="-50 -50 100 100"
@@ -33,14 +51,13 @@ const DefaultAvatar = ({ name }: { name: string }) => {
         >
           <title>{name}</title>
           <text
-            fontSize="50px"
-            fill="#fff"
+            fontSize="40px"
+            fill="#111"
             dy="0.35em"
             textAnchor="middle"
             className={[
               typography.antialiased,
               typography.sansSerif,
-              typography.leadingSmall,
               typography.fontWeightBold,
             ].join(' ')}
           >
@@ -55,23 +72,32 @@ const DefaultAvatar = ({ name }: { name: string }) => {
 type Props = {|
   name: string,
   outline?: boolean,
-  size?: 'sm' | 'md' | 'lg',
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fit',
   src?: string,
   verified?: boolean,
-  icon?: 'check-circle' | 'pinterest',
+  __dangerouslyUseDefaultIcon?: boolean,
 |};
 
 const sizes = {
-  sm: 24,
-  md: 40,
-  lg: 72,
+  xs: 24,
+  sm: 32,
+  md: 48,
+  lg: 64,
+  xl: 120,
 };
 
 export default function Avatar(props: Props) {
   const [isImageLoaded, setIsImageLoaded] = React.useState(true);
-  const { name, outline, size, src, verified, icon = 'check-circle' } = props;
-  const width = size ? sizes[size] : '100%';
-  const height = size ? sizes[size] : '';
+  const {
+    name,
+    outline,
+    size = 'fit',
+    src,
+    verified,
+    __dangerouslyUseDefaultIcon: useDefaultIcon = false,
+  } = props;
+  const width = size === 'fit' ? '100%' : sizes[size];
+  const height = size === 'fit' ? '' : sizes[size];
 
   const handleImageError = () => setIsImageLoaded(false);
 
@@ -90,10 +116,10 @@ export default function Avatar(props: Props) {
       width={width}
       height={height}
       position="relative"
-      shape="circle"
+      rounding="circle"
     >
       {src && isImageLoaded ? (
-        <Mask shape="circle" wash>
+        <Mask rounding="circle" wash>
           <Image
             alt={name}
             color="#EFEFEF"
@@ -104,15 +130,15 @@ export default function Avatar(props: Props) {
           />
         </Mask>
       ) : (
-        <DefaultAvatar name={name} />
+        <DefaultAvatar name={name} useDefaultIcon={useDefaultIcon} />
       )}
       {verified && (
         <Box
           position="absolute"
-          width="20%"
-          height="20%"
-          minWidth={8}
-          minHeight={8}
+          width="25%"
+          height="25%"
+          minWidth={12}
+          minHeight={12}
           dangerouslySetInlineStyle={{
             __style: {
               bottom: '4%',
@@ -120,18 +146,13 @@ export default function Avatar(props: Props) {
             },
           }}
         >
-          <Box
-            color="white"
-            width="100%"
-            height="100%"
-            shape="circle"
-            dangerouslySetInlineStyle={{
-              __style: {
-                boxShadow: '0 0 0 2px #fff',
-              },
-            }}
-          >
-            <Icon color="red" icon={icon} accessibilityLabel="" size="100%" />
+          <Box color="white" width="100%" height="100%" rounding="circle">
+            <Icon
+              color="red"
+              icon="check-circle"
+              accessibilityLabel=""
+              size="100%"
+            />
           </Box>
         </Box>
       )}
@@ -143,6 +164,6 @@ Avatar.propTypes = {
   name: PropTypes.string.isRequired,
   outline: PropTypes.bool,
   src: PropTypes.string,
-  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  size: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl', 'fit']),
   verified: PropTypes.bool,
 };

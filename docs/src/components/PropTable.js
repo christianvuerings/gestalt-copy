@@ -1,4 +1,4 @@
-// @flow
+// @flow strict
 import * as React from 'react';
 import { Box, Text, Icon, Link } from 'gestalt';
 
@@ -16,9 +16,9 @@ type Props = {|
 |};
 
 const Th = ({ children }: {| children?: React.Node |}) => (
-  <th style={{ borderBottom: '2px solid #EFEFEF' }}>
+  <th style={{ borderBottom: '2px solid #ddd' }}>
     <Box padding={2}>
-      <Text size="sm" color="gray" overflow="normal" weight="bold">
+      <Text size="md" color="gray" overflow="normal" weight="bold">
         {children}
       </Text>
     </Box>
@@ -41,14 +41,14 @@ const Td = ({
   <td
     style={{
       verticalAlign: 'top',
-      borderBottom: border && '1px solid #EFEFEF',
+      borderBottom: border && '1px solid #ddd',
       padding: 0,
       width: shrink ? '1px' : '',
     }}
     colSpan={colspan}
   >
     <Box paddingX={2} marginTop={2} marginBottom={border ? 2 : 0}>
-      <Text overflow="normal" leading="tall" color={color}>
+      <Text overflow="normal" color={color}>
         {children}
       </Text>
     </Box>
@@ -134,7 +134,7 @@ export default function PropTable({ props: properties, Component }: Props) {
                     )}
                     <Td shrink border={!description}>
                       <Box>
-                        <Text overflow="normal" leading="tall" weight="bold">
+                        <Text overflow="normal" weight="bold">
                           {href ? (
                             <Link
                               href={`#${href}`}
@@ -143,7 +143,6 @@ export default function PropTable({ props: properties, Component }: Props) {
                                 const elem = document.getElementById(href);
                                 if (elem) {
                                   elem.scrollIntoView({
-                                    behavior: 'smooth',
                                     block: 'start',
                                   });
                                 }
@@ -158,7 +157,7 @@ export default function PropTable({ props: properties, Component }: Props) {
                       </Box>
                       {responsive && (
                         <Box>
-                          <Text leading="tall">
+                          <Text>
                             <code>
                               sm{upcase(name)}, md{upcase(name)}, lg
                               {upcase(name)}

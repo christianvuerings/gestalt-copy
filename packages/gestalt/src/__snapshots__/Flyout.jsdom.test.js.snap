@@ -3,144 +3,90 @@
 exports[`Flyout does not render when the anchor is null 1`] = `null`;
 
 exports[`Flyout renders 1`] = `
-<div
-  className="container"
-  style={
-    Object {
-      "left": -20,
-      "stroke": "#efefef",
-      "top": NaN,
-      "visibility": "visible",
-    }
-  }
->
+<div>
   <div
-    className="whiteBg white contents maxDimensions minDimensions"
-    tabIndex={-1}
+    className="container"
+    style={
+      Object {
+        "left": -20,
+        "stroke": "#efefef",
+        "top": NaN,
+        "visibility": "visible",
+      }
+    }
   >
     <div
-      className="innerContents maxDimensions minDimensions"
-      style={
-        Object {
-          "width": 230,
-        }
-      }
-    />
-    <div
-      className="white caret"
-      style={
-        Object {
-          "bottom": null,
-          "left": 8,
-          "right": null,
-          "top": null,
-        }
-      }
+      className="border whiteBg white rounding4 contents maxDimensions minDimensions"
+      tabIndex={-1}
     >
-      <svg
-        height="24"
-        width="24"
-      >
-        <path
-          d="M0 0 L12 12 L24 0"
-        />
-      </svg>
+      <div
+        className="innerContents maxDimensions minDimensions"
+        style={
+          Object {
+            "maxWidth": 230,
+          }
+        }
+      />
     </div>
   </div>
 </div>
 `;
 
 exports[`Flyout renders as blue 1`] = `
-<div
-  className="container"
-  style={
-    Object {
-      "left": -20,
-      "stroke": null,
-      "top": NaN,
-      "visibility": "visible",
-    }
-  }
->
+<div>
   <div
-    className="blueBg blue contents maxDimensions minDimensions"
-    tabIndex={-1}
+    className="container"
+    style={
+      Object {
+        "left": -20,
+        "stroke": null,
+        "top": NaN,
+        "visibility": "visible",
+      }
+    }
   >
     <div
-      className="innerContents maxDimensions minDimensions"
-      style={
-        Object {
-          "width": 230,
-        }
-      }
-    />
-    <div
-      className="blue caret"
-      style={
-        Object {
-          "bottom": null,
-          "left": 8,
-          "right": null,
-          "top": null,
-        }
-      }
+      className="border blueBg blue rounding4 contents maxDimensions minDimensions"
+      tabIndex={-1}
     >
-      <svg
-        height="24"
-        width="24"
-      >
-        <path
-          d="M0 0 L12 12 L24 0"
-        />
-      </svg>
+      <div
+        className="innerContents maxDimensions minDimensions"
+        style={
+          Object {
+            "maxWidth": 230,
+          }
+        }
+      />
     </div>
   </div>
 </div>
 `;
 
 exports[`Flyout renders as error 1`] = `
-<div
-  className="container"
-  style={
-    Object {
-      "left": -20,
-      "stroke": null,
-      "top": NaN,
-      "visibility": "visible",
-    }
-  }
->
+<div>
   <div
-    className="redBg red contents maxDimensions minDimensions"
-    tabIndex={-1}
+    className="container"
+    style={
+      Object {
+        "left": -20,
+        "stroke": null,
+        "top": NaN,
+        "visibility": "visible",
+      }
+    }
   >
     <div
-      className="innerContents maxDimensions minDimensions"
-      style={
-        Object {
-          "width": 230,
-        }
-      }
-    />
-    <div
-      className="red caret"
-      style={
-        Object {
-          "bottom": null,
-          "left": 8,
-          "right": null,
-          "top": null,
-        }
-      }
+      className="border redBg red rounding4 contents maxDimensions minDimensions"
+      tabIndex={-1}
     >
-      <svg
-        height="24"
-        width="24"
-      >
-        <path
-          d="M0 0 L12 12 L24 0"
-        />
-      </svg>
+      <div
+        className="innerContents maxDimensions minDimensions"
+        style={
+          Object {
+            "maxWidth": 230,
+          }
+        }
+      />
     </div>
   </div>
 </div>
