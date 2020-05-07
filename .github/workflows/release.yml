@@ -31,12 +31,13 @@ jobs:
           echo "machine github.com" >> ~/.netrc
           echo "login christianvuerings" >> ~/.netrc
           echo "password $GITHUB_PERSONAL_TOKEN" >> ~/.netrc
+      - name: Install dependencies
+        run: yarn install
       - name: Release Steps
         id: release
         run: ./scripts/releaseSteps.js
       - name: Publish to npm
         run: |
-          yarn install
           cd packages/gestalt
           yarn publish --registry=https://registry.npmjs.org --no-git-tag-version --new-version ${{ steps.release.outputs.VERSION }}
       - name: Update GitHub pages branch
