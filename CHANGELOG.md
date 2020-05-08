@@ -1,3 +1,9 @@
+## 1.48.1 (May 8, 2020)
+
+  ### Patch
+
+  - Merge pull request #9 from christianvuerings/fix4
+
 ## 1.47.0 (May 6, 2020)
 
 ### Minor
