@@ -51,4 +51,4 @@ jobs:
           git add -f docs/build
           git commit -m "Deployed to Github Pages" --no-verify
           git subtree split --prefix docs/build -b tmp-gh-pages
-          git push -f https://github.com/chrisitianvuerings/gestalt-copy.git tmp-gh-pages:gh-pages
+          git push -f https://github.com/christianvuerings/gestalt-copy.git tmp-gh-pages:gh-pages

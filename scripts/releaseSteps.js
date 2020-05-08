@@ -23,13 +23,9 @@ function capitalizeFirstLetter(string) {
 
 async function getLastCommitMessage() {
   // Example: `Icon: Adding story pin icon #minor (#842)`
-  return (
-    // TODO Remove
-    'Icon: Adding story pin icon #minor (#842)' ||
-    shell.exec('git log -n1 --pretty=format:"%s"', {
-      silent: true,
-    }).stdout
-  );
+  return shell.exec('git log -n1 --pretty=format:"%s"', {
+    silent: true,
+  }).stdout;
 }
 
 async function getReleaseNotes({ lastCommitMessage, newVersion, releaseType }) {
@@ -120,6 +116,7 @@ async function createGitHubRelease({ newVersion, releaseNotes }) {
 
 (async () => {
   console.log('Running Gestalt Release Steps');
+
   const lastCommitMessage = await getLastCommitMessage();
   const { newVersion, releaseType } = await bumpPackageVersion({
     lastCommitMessage,
