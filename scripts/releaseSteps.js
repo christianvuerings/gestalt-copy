@@ -88,7 +88,10 @@ ${previousChangelog}`
 
 async function commitChanges({ newVersion }) {
   shell.exec('git add .');
-  shell.exec(`git commit -am "Version bump: v${newVersion}"`);
+  shell.exec(
+    `git commit -am "Version bump: v${newVersion}" --author="Gestalt Bot <gestalt-bot@pinterest.com>"`
+  );
+  shell.exec('git push --set-upstream origin master');
 }
 
 async function createGitHubRelease({ newVersion, releaseNotes }) {
@@ -124,9 +127,9 @@ async function createGitHubRelease({ newVersion, releaseNotes }) {
     releaseType,
   });
   await updateChangelog({ releaseNotes });
-  // await commitChanges({ newVersion });
-  // await createGitHubRelease({ newVersion, releaseNotes });
+  await commitChanges({ newVersion });
+  await createGitHubRelease({ newVersion, releaseNotes });
 
   // Export new version so it can be used by other steps
-  core.exportVariable('VERSION', newVersion);
+  core.setOutput('VERSION', newVersion);
 })();
