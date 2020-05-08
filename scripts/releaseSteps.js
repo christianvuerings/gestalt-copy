@@ -83,13 +83,10 @@ ${previousChangelog}`
 }
 
 async function commitChanges({ newVersion }) {
-  console.log('git add .');
   shell.exec('git add .');
-  console.log('git commit');
-  shell.exec(
-    `git commit -am "Version bump: v${newVersion}" --author="Gestalt Bot <gestalt-bot@pinterest.com>"`
-  );
-  console.log('git push');
+  shell.exec('git config --global user.email "gestalt-bot@pinterest.com"');
+  shell.exec('git config --global user.name "Gestalt Bot"');
+  shell.exec(`git commit -am "Version bump: v${newVersion}"`);
   shell.exec('git push --set-upstream origin master');
 }
 
