@@ -1,3 +1,9 @@
+## 1.49.4 (May 8, 2020)
+
+  ### Patch
+
+  - Version bump: v1.49.3
+
 ## 1.49.3 (May 8, 2020)
 
   ### Patch
