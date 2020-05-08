@@ -36,6 +36,8 @@ jobs:
       - name: Release Steps
         id: release
         run: ./scripts/releaseSteps.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to npm
         run: |
           cd packages/gestalt
