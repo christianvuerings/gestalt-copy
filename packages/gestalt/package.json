@@ -1,6 +1,6 @@
 {
   "name": "gestalt-copy2",
-  "version": "1.50.0",
+  "version": "1.50.1",
   "license": "Apache-2.0",
   "homepage": "https://christianvuerings.github.io/gestalt-copy/",
   "description": "A set of React UI components which enforce Pinterest’s design language",
