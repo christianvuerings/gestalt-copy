@@ -17,6 +17,10 @@ jobs:
     env:
       LABELS: ${{ join(github.event.pull_request.labels.*.name, ', ') }}
     steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
