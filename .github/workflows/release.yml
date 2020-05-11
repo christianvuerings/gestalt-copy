@@ -13,7 +13,7 @@ jobs:
   publish:
     name: Publish gestalt
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.message, 'Version bump:') == false
+    if: contains(github.event.head_commit.message, 'Version bump:') == false && github.repository == 'christianvuerings/gestalt-copy'
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
