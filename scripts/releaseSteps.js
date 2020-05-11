@@ -44,7 +44,7 @@ async function getReleaseNotes({ lastCommitMessage, newVersion, releaseType }) {
 }
 
 async function bumpPackageVersion() {
-  // Define the version bump type depending on the hashtag in the commit: #patch / #minor / #major. Default is #patch
+  // Define the version bump type depending on the attached label: 'patch release' / 'minor release' / 'major release'. Default is 'patch release'
   const types = ['patch', 'minor', 'major'];
   const releaseType =
     types.find(type =>
