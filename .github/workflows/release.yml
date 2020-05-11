@@ -56,7 +56,7 @@ jobs:
       - name: Labels output 1
         run: "echo 'labels: ${{ steps.labels.outputs.data }}'"
       - name: Labels output 2
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data.labels).repository.object.message }}'"
+        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.message }}'"
       - name: Labels output 2
         run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.associatedPullRequests }}'"
       - name: Labels output 2
