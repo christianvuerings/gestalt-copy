@@ -1,3 +1,9 @@
+## 1.51.1 (May 11, 2020)
+
+  ### Patch
+
+  - Merge pull request #13 from christianvuerings/fix-8
+
 ## 1.49.4 (May 8, 2020)
 
   ### Patch
