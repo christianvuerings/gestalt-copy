@@ -1,3 +1,9 @@
+## 1.55.0 (May 11, 2020)
+
+  ### Minor
+
+  - Only publish on main repo #minor
+
 ## 1.54.1 (May 11, 2020)
 
   ### Patch
