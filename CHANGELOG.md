@@ -1,3 +1,9 @@
+## 1.55.2 (May 11, 2020)
+
+  ### Patch
+
+  - Merge pull request #19 from christianvuerings/fix-14
+
 ## 1.55.1 (May 11, 2020)
 
   ### Patch
