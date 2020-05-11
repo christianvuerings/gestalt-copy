@@ -49,7 +49,7 @@ jobs:
               }
             }
           owner: ${{ github.event.repository.owner.name }}
-          repo: ${{ github.event.repository.name }}
+          name: ${{ github.event.repository.name }}
           oid: ${{ github.event.head_commit.id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
