@@ -22,7 +22,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - uses: octokit/graphql-action@v2.x
-        id: labels
+        id: query_labels
         with:
           query: |
             query labels($owner:String!, $name:String!, $oid:GitObjectID!) {
@@ -53,20 +53,15 @@ jobs:
           oid: ${{ github.event.head_commit.id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract labels
+        id: extract_labels
+        env:
+          JSON_DATA: ${{ steps.query_labels.outputs.data }}
+        run: |
+          LABELS=$(echo "${JSON_DATA}" | jq '.repository.object.associatedPullRequests.edges[0].node.labels.edges[].node.name' | tr '\n' ', ')
+          echo "::set-output name=labels::${LABELS}"
       - name: Labels output 1
-        run: "echo 'labels: ${{ steps.labels.outputs.data }}'"
-      - name: Labels output 2
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.message }}'"
-      - name: Labels output 2
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.associatedPullRequests }}'"
-      - name: Labels output 2
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.associatedPullRequests.edges[0] }}'"
-      - name: Labels output 2
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.associatedPullRequests.edges[0].node.labels }}'"
-      - name: Labels output 2
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data).labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name }}'"
-      - name: Labels output 3
-        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data.labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name) }}'"
+        run: "echo 'labels: ${{ steps.extract_labels.outputs.labels }}'"
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
