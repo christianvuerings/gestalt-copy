@@ -54,7 +54,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Labels output
-        run: "echo 'labels: ${{ steps.labels.outputs.data }}'"
+        run: |
+          "echo 'labels 1: ${{ steps.labels.outputs.data.labels }}'"
+          "echo 'labels 2: ${{ steps.labels.outputs.data.labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name }}'"
+          "echo 'labels 3: ${{ fromJSON(steps.labels.outputs.data.labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name) }}'"
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
