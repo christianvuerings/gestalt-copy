@@ -14,8 +14,6 @@ jobs:
     name: Publish gestalt
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'Version bump:') == false && github.repository == 'christianvuerings/gestalt-copy'
-    env:
-      LABELS: ${{ join(github.event.pull_request.labels.*.name, ', ') }}
     steps:
       - name: Dump GitHub context
         env:
@@ -60,10 +58,7 @@ jobs:
         run: |
           LABELS=$(echo "${JSON_DATA}" | jq '.repository.object.associatedPullRequests.edges[0].node.labels.edges[].node.name' | tr '\n' ', ')
           echo "::set-output name=labels::${LABELS}"
-      - name: Labels output
-        run: |
-          echo "test"
-          "echo 'labels: ${{ steps.extract_labels.outputs.labels }}'"
+          echo ${LABELS}
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
@@ -90,6 +85,7 @@ jobs:
         run: ./scripts/releaseSteps.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABELS: ${{ steps.extract_labels.outputs.labels }}
       - name: Publish to npm
         run: |
           cd packages/gestalt
