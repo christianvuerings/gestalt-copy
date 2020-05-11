@@ -43,12 +43,13 @@ async function getReleaseNotes({ lastCommitMessage, newVersion, releaseType }) {
   - ${lastCommitMessage}`;
 }
 
-async function bumpPackageVersion({ lastCommitMessage }) {
+async function bumpPackageVersion() {
   // Define the version bump type depending on the hashtag in the commit: #patch / #minor / #major. Default is #patch
   const types = ['patch', 'minor', 'major'];
   const releaseType =
-    types.find(type => lastCommitMessage.toLowerCase().includes(`#${type}`)) ||
-    'patch';
+    types.find(type =>
+      (process.env.LABELS || '').toLowerCase().includes(`${type} release`)
+    ) || 'patch';
 
   // Previous version
   const { version: previousVersion } = packageJSONParsed;
@@ -108,17 +109,18 @@ async function createGitHubRelease({ newVersion, releaseNotes }) {
 
 (async () => {
   console.log('Running Gestalt Release Steps');
+  console.log(`Labels: ${process.env.LABELS || '(no labels set)'}`);
 
   console.log('\nGet last commit message');
   const lastCommitMessage = await getLastCommitMessage();
   console.log(`Last commit message: ${lastCommitMessage}`);
 
   console.log('\nGet last commit message');
-  const { newVersion, previousVersion, releaseType } = await bumpPackageVersion(
-    {
-      lastCommitMessage,
-    }
-  );
+  const {
+    newVersion,
+    previousVersion,
+    releaseType,
+  } = await bumpPackageVersion();
   console.log(`Release type: ${releaseType}`);
   console.log(`Previous version: ${previousVersion}`);
   console.log(`New version: ${newVersion}`);

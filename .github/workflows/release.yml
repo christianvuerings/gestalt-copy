@@ -14,6 +14,8 @@ jobs:
     name: Publish gestalt
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'Version bump:') == false && github.repository == 'christianvuerings/gestalt-copy'
+    env:
+      LABELS: ${{ join(github.event.issue.labels.*.name, ', ') }}
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
