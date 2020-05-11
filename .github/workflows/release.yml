@@ -58,7 +58,7 @@ jobs:
       - name: Labels output 2
         run: "echo 'labels: ${{ steps.labels.outputs.data.labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name }}'"
       - name: Labels output 3
-          run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data.labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name) }}'"
+        run: "echo 'labels: ${{ fromJSON(steps.labels.outputs.data.labels.repository.object.associatedPullRequests.edges[0].node.labels.edges[0].node.name) }}'"
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
