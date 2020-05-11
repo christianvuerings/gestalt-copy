@@ -21,6 +21,40 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - uses: octokit/graphql-action@v2.x
+        id: labels
+        with:
+          query: |
+            query labels($owner:String!, $name:String!, $oid:GitObjectID!) {
+              repository(owner: $owner, name: $name) {
+                object(oid: $oid) {
+                  ... on Commit {
+                    message
+                    associatedPullRequests(first: 1) {
+                      edges {
+                        node {
+                          title
+                          labels(first: 5) {
+                            edges {
+                              node {
+                                name
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          owner: ${{ github.event.repository.owner.name }}
+          repo: ${{ github.event.repository.name }}
+          oid: ${{ github.event.head_commit.id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Labels output
+        run: "echo 'labels: ${{ steps.labels.outputs.data }}'"
       - name: Checkout the repo
         uses: actions/checkout@v2
         with:
