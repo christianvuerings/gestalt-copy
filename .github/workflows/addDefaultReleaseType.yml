@@ -1,0 +1,17 @@
+name: Add Default Release Type
+on:
+  pull_request:
+    branches:
+      - master
+    types:
+      - opened
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add Default Release Type Label
+        run: ./scripts/addDefaultReleaseTypeLabel.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
