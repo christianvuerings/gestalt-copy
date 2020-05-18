@@ -1,3 +1,9 @@
+## 1.56.1 (May 18, 2020)
+
+  ### Patch
+
+  - Merge pull request #41 from christianvuerings/t2
+
 ## 1.56.0 (May 11, 2020)
 
   ### Minor
