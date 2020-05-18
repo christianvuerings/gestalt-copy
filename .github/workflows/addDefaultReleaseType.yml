@@ -5,12 +5,21 @@ on:
       - master
     types:
       - opened
+      - reopened
 
 jobs:
   label:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
       - name: Add Default Release Type Label
         run: ./scripts/addDefaultReleaseTypeLabel.js
         env:
