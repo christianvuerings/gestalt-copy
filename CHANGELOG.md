@@ -1,3 +1,9 @@
+## 1.57.0 (May 18, 2020)
+
+  ### Minor
+
+  - Merge pull request #42 from christianvuerings/t3
+
 ## 1.56.1 (May 18, 2020)
 
   ### Patch
