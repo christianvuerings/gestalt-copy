@@ -1,0 +1,1 @@
+{"version":3,"sources":["Markdown.css","reset.css"],"names":[],"mappings":"AAAA,YACE,eAAgB,CAChB,YACF,CAEA,cACE,iBAAkB,CAClB,cACF,CCRA,KACE,QACF","file":"main.802c4144.chunk.css","sourcesContent":[".Markdown p {\n  margin-bottom: 0;\n  margin-top: 0;\n}\n\n.Markdown p + p {\n  margin-bottom: 8px;\n  margin-top: 8px;\n}\n","body {\n  margin: 0;\n}\n"]}
