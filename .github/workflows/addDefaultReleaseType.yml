@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: christianvuerings/add-labels@0.2
+      - uses: christianvuerings/add-labels@v1
         with:
           labels: |
             minor release
