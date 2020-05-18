@@ -5,13 +5,10 @@ const { GitHub, context } = require('@actions/github');
   const github = new GitHub(process.env.GITHUB_TOKEN);
   const { owner, repo } = context.repo;
 
-  console.log(JSON.stringify(context, null, 4));
-
-  // await github.repos.createRelease({
-  //   owner,
-  //   repo,
-  //   tag_name: `v${newVersion}`,
-  //   name: `v${newVersion}`,
-  //   body: releaseNotes,
-  // });
+  await github.issues.addLabels({
+    owner,
+    repo,
+    issue_number: context.payload.number,
+    labels: ['patch release'],
+  });
 })();
