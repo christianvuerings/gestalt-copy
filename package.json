@@ -46,7 +46,7 @@
     "react-test-renderer": "^16.13.1",
     "rollup-plugin-inline-svg": "^1.1.1",
     "semver": "^7.3.2",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.5",
     "stylelint": "^13.3.2",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-config-standard": "^20.0.0",
